@@ -1,0 +1,11 @@
+# Zabbix discovery, run every 1 hour
+0 * * * *    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode volume --monitoring-type discovery
+0 * * * *    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode deployment --monitoring-type discovery
+0 * * * *    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode daemonset --monitoring-type discovery
+0 * * * *    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode node --monitoring-type discovery
+
+# Zabbix item, run every 5 minutes
+*/3 * * * *  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode volume --monitoring-type item
+*/3 * * * *  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode deployment --monitoring-type item
+*/3 * * * *  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode daemonset --monitoring-type item
+*/3 * * * *  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode node --monitoring-type item
