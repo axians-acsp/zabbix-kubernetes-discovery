@@ -8,7 +8,7 @@
     <img alt="Issues" src="https://img.shields.io/github/issues/axians-acsp/zabbix-kubernetes-discovery?logo=github&color=0&label=Issues&style=flat-square">
   </a>
   <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/actions/workflows/docker.yml">
-    <img alt="Pipeline" src="https://img.shields.io/github/workflow/status/axians-acsp/zabbix-kubernetes-discovery/Docker?logo=github&color=0&label=Pipeline&style=flat-square">
+    <img alt="Pipeline" src="https://img.shields.io/github/workflow/status/axians-acsp/zabbix-kubernetes-discovery/Build%20and%20publish%20Docker?logo=github&color=0&label=Pipeline&style=flat-square">
   </a>
 </p>
 
