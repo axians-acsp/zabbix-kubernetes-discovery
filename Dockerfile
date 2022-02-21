@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 LABEL description="Zabbix Kubernetes Discovery" \
       maintainer="Axians Cloud Services Provider" \
-      repository="https://github.com/axians/zabbix-kubernetes-discovery"
+      repository="https://github.com/axians-acsp/zabbix-kubernetes-discovery"
 
 ENV ZABBIX_ENDPOINT=""
 ENV KUBERNETES_NAME=""
