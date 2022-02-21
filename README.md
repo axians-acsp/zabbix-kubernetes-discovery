@@ -30,6 +30,20 @@ Works with 2 variables only:
 
 ## Install
 
+### Helm from local
+
+```bash
+$ kubectl create namespace zabbix-monitoring
+$ helm upgrade --install zabbix-kubernetes-discovery ./helm/ \
+    -f ./helm/values.yaml \
+    -n zabbix-monitoring \
+    --set namespace.name="zabbix-monitoring" \
+    --set environment.ZABBIX_ENDPOINT="zabbix-proxy.example.com" \
+    --set environment.KUBERNETES_NAME="kubernetes-cluster-example"
+```
+
+### Helm from repo
+
 ## Development
 
 ### Manual build

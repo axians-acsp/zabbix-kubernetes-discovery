@@ -1,0 +1,35 @@
+namespace:
+  name: zabbix-monitoring
+
+rbac:
+  create: true
+  name: zabbix-kubernetes-discovery
+  rolebinding: zabbix-kubernetes-discovery
+
+serviceAccount:
+  create: true
+  name: zabbix-kubernetes-discovery
+
+deployment:
+  name: zabbix-kubernetes-discovery
+  image:
+    name: ghcr.io/axians-acsp/zabbix-kubernetes-discovery:latest
+    pullPolicy: Always
+  replicas: 1
+  strategy: Recreate
+
+environment:
+  ZABBIX_ENDPOINT:
+  KUBERNETES_NAME:
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
