@@ -30,6 +30,10 @@ spec:
           value: {{ .Values.environment.ZABBIX_ENDPOINT }}
         - name: KUBERNETES_NAME
           value: {{ .Values.environment.KUBERNETES_NAME }}
+        volumeMounts:
+        - name: crontab
+          mountPath: /app/crontab
+          subPath: crontab
         resources:
 {{ toYaml .Values.resources | indent 10 }}
       {{- with .Values.nodeSelector }}
@@ -44,3 +48,10 @@ spec:
       affinity:
 {{ toYaml . | indent 8 }}
       {{- end }}
+      volumes:
+      - name: crontab
+        configMap:
+          name: {{ .Values.crontab.name }}
+          items:
+          - key: crontab
+            path: crontab

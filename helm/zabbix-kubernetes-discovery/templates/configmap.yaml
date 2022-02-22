@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.crontab.name }}
+  labels:
+    app: {{ .Values.deployment.name }}
+data:
+  crontab: |
+    # Zabbix discovery (default every 1 hour)
+    {{ .Values.crontab.schedule.discovery }}    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode volume --monitoring-type discovery
+    {{ .Values.crontab.schedule.discovery }}    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode deployment --monitoring-type discovery
+    {{ .Values.crontab.schedule.discovery }}    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode daemonset --monitoring-type discovery
+    {{ .Values.crontab.schedule.discovery }}    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode node --monitoring-type discovery
+
+    # Zabbix item (default every 5 minutes)
+    {{ .Values.crontab.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode volume --monitoring-type item
+    {{ .Values.crontab.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode deployment --monitoring-type item
+    {{ .Values.crontab.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode daemonset --monitoring-type item
+    {{ .Values.crontab.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode node --monitoring-type item

@@ -22,6 +22,12 @@ environment:
   ZABBIX_ENDPOINT:
   KUBERNETES_NAME:
 
+crontab:
+  name: zabbix-kubernetes-discovery
+  schedule:
+    discovery: '0 * * * *'
+    item: '*/3 * * * *'
+
 resources:
   requests:
     cpu: 10m

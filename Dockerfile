@@ -13,7 +13,8 @@ RUN apt update && \
     apt install -y telnet curl wget less vim traceroute iputils-ping python3 python3-pip && \
     rm -rf /var/lib/apt/lists && \
     pip3 install requests kubernetes py-zabbix && \
-    mkdir -p /app /root/.kube
+    mkdir -p /app /root/.kube && \
+    touch /app/crontab
 
 RUN curl -fsSLO "https://github.com/aptible/supercronic/releases/download/v${SUPERCRONIC_VER}/supercronic-linux-amd64" && \
     echo "${SUPERCRONIC_SHA}  supercronic-linux-amd64" | sha1sum -c - && \
