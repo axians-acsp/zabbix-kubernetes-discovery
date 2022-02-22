@@ -8,6 +8,7 @@ annotations:
 keywords:
 - zabbix
 - kubernetes
+- monitoring
 sources:
 - https://github.com/axians-acsp/zabbix-kubernetes-discovery
 maintainers:
