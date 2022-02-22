@@ -6,8 +6,10 @@ instructions on how to use it.
 
 ## Publishing
 
-We use Github pages to publish the chart as a versioned package. The
-tarballs and index.yaml file are updated with a script in that branch.
+We use Github pages to publish the Helm chart as a versioned package. The
+tarballs and index.yaml file are updated automatically (Github Actions).
+
+More details in [Axians Helm repository here](https://helm.acsp.io).
 
 ## Prerequisites
 
@@ -24,6 +26,13 @@ $ helm upgrade --install zabbix-kubernetes-discovery \
     --set namespace.name="zabbix-monitoring" \
     --set environment.ZABBIX_ENDPOINT="zabbix-proxy.example.com" \
     --set environment.KUBERNETES_NAME="kubernetes-cluster-name"
+```
+
+## Uninstall
+
+```bash
+$ helm delete zabbix-kubernetes-discovery \
+    --namespace zabbix-monitoring
 ```
 
 ## Parameters
