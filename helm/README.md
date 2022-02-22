@@ -28,28 +28,28 @@ $ helm upgrade --install zabbix-kubernetes-discovery \
 
 ## Parameters
 
-| Name                           | Description | Value |
-|--------------------------------|-------------|-------|
-| `namespace.name`               | | `zabbix-monitoring` |
-| `rbac.create`                  | | `true` |
-| `rbac.name`                    | | `zabbix-kubernetes-discovery` |
-| `rbac.rolebinding`             | | `zabbix-kubernetes-discovery` |
-| `serviceAccount.create`        | | `true` |
-| `serviceAccount.name`          | | `zabbix-kubernetes-discovery` |
-| `deployment.name`              | | `zabbix-kubernetes-discovery` |
-| `deployment.image.name`        | | `ghcr.io/axians-acsp/zabbix-kubernetes-discovery:latest` |
-| `deployment.image.pullPolicy`  | | `Always` |
-| `deployment.replicas`          | | `1` |
-| `deployment.strategy`          | | `Recreate` |
-| `environment.ZABBIX_ENDPOINT`  | | `""` |
-| `environment.KUBERNETES_NAME`  | | `""` |
-| `crontab.name`                 | | `zabbix-kubernetes-discovery` |
-| `crontab.schedule.discovery`   | | `0 * * * *` |
-| `crontab.schedule.item`        | | `*/3 * * * *` |
-| `resources.requests.cpu`       | | `10m` |
-| `resources.requests.memory`    | | `32Mi` |
-| `resources.limits.cpu`         | | `500m` |
-| `resources.limits.memory`      | | `256Mi` |
-| `nodeSelector`                 | | `{}` |
-| `tolerations`                  | | `[]` |
-| `affinity`                     | | `{}` |
+| Name                           | Description  | Type    | Value |
+|--------------------------------|--------------|---------|-------
+| `namespace.name`               |              | string  | `zabbix-monitoring`                                         |
+| `rbac.create`                  |              | boolean | `true`                                                      |
+| `rbac.name`                    |              | string  | `zabbix-kubernetes-discovery`                               |
+| `rbac.rolebinding`             |              | string  | `zabbix-kubernetes-discovery`                               |
+| `serviceAccount.create`        |              | boolean | `true`                                                      |
+| `serviceAccount.name`          |              | string  | `zabbix-kubernetes-discovery`                               |
+| `deployment.name`              |              | string  | `zabbix-kubernetes-discovery`                               |
+| `deployment.image.name`        |              | string  | `ghcr.io/axians-acsp/zabbix-kubernetes-discovery:latest`    |
+| `deployment.image.pullPolicy`  |              | string  | `Always`                                                    |
+| `deployment.replicas`          |              | integer | `1`                                                         |
+| `deployment.strategy`          |              | string  | `Recreate`                                                  |
+| `environment.ZABBIX_ENDPOINT`  |              | string  | `""`                                                        |
+| `environment.KUBERNETES_NAME`  |              | string  | `""`                                                        |
+| `crontab.name`                 |              | string  | `zabbix-kubernetes-discovery`                               |
+| `crontab.schedule.discovery`   |              | string  | `0 * * * *`                                                 |
+| `crontab.schedule.item`        |              | string  | `*/3 * * * *`                                               |
+| `resources.requests.cpu`       |              | string  | `10m`                                                       |
+| `resources.requests.memory`    |              | string  | `32Mi`                                                      |
+| `resources.limits.cpu`         |              | string  | `500m`                                                      |
+| `resources.limits.memory`      |              | string  | `256Mi`                                                     |
+| `nodeSelector`                 |              | dict    | `{}`                                                        |
+| `tolerations`                  |              | list    | `[]`                                                        |
+| `affinity`                     |              | dict    | `{}`                                                        |
