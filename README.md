@@ -37,8 +37,9 @@ Works with 2 variables only:
 
 ```bash
 $ kubectl create namespace zabbix-monitoring
-$ helm upgrade --install zabbix-kubernetes-discovery ./helm/ \
-    -f ./helm/values.yaml \
+$ helm upgrade --install zabbix-kubernetes-discovery \
+    ./helm/zabbix-kubernetes-discovery/ \
+    -f ./helm/zabbix-kubernetes-discovery/values.yaml \
     -n zabbix-monitoring \
     --set namespace.name="zabbix-monitoring" \
     --set environment.ZABBIX_ENDPOINT="zabbix-proxy.example.com" \
