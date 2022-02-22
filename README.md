@@ -26,12 +26,12 @@ Kubernetes monitoring for Zabbix with discovery objects:
 * Deployments
 * PersistentVolumeClaims
 
-Works with 2 variables only:
+Works with 2 variables only by default:
 
 * `ZABBIX_ENDPOINT`: Zabbix server/proxy where the datas will be sent
 * `KUBERNETES_NAME`: Name of your Kubernetes cluster on Zabbix (host)
 
-## Install
+## Helm
 
 Before installation, you need to create `zabbix-monitoring` namespace in your cluster:
 
@@ -39,19 +39,19 @@ Before installation, you need to create `zabbix-monitoring` namespace in your cl
 $ kubectl create namespace zabbix-monitoring
 ```
 
-### Helm from local
+### Install from local
 
 ```bash
 $ helm upgrade --install zabbix-kubernetes-discovery \
     ./helm/zabbix-kubernetes-discovery/ \
     --values ./helm/zabbix-kubernetes-discovery/values.yaml \
     --namespace zabbix-monitoring \
-    --set namespace.name="zabbix-monitoring" \
+    --set namespace.name="zabbix-monitoring" \
     --set environment.ZABBIX_ENDPOINT="zabbix-proxy.example.com" \
     --set environment.KUBERNETES_NAME="kubernetes-cluster-example"
 ```
 
-### Helm from repo
+### Install from repo
 
 ```bash
 $ helm repo add acsp https://helm.acsp.io
