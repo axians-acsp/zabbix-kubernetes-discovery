@@ -33,20 +33,35 @@ Works with 2 variables only:
 
 ## Install
 
-### Helm from local
+Before installation, you need to create `zabbix-monitoring` namespace in your cluster:
 
 ```bash
 $ kubectl create namespace zabbix-monitoring
+```
+
+### Helm from local
+
+```bash
 $ helm upgrade --install zabbix-kubernetes-discovery \
     ./helm/zabbix-kubernetes-discovery/ \
-    -f ./helm/zabbix-kubernetes-discovery/values.yaml \
-    -n zabbix-monitoring \
+    --values ./helm/zabbix-kubernetes-discovery/values.yaml \
+    --namespace zabbix-monitoring \
     --set namespace.name="zabbix-monitoring" \
     --set environment.ZABBIX_ENDPOINT="zabbix-proxy.example.com" \
     --set environment.KUBERNETES_NAME="kubernetes-cluster-example"
 ```
 
 ### Helm from repo
+
+```bash
+$ helm repo add acsp https://helm.acsp.io
+$ helm upgrade --install zabbix-kubernetes-discovery \
+    acsp/zabbix-kubernetes-discovery \
+    --namespace zabbix-monitoring
+    --set namespace.name="zabbix-monitoring" \
+    --set environment.ZABBIX_ENDPOINT="zabbix-proxy.example.com" \
+    --set environment.KUBERNETES_NAME="kubernetes-cluster-name"
+```
 
 ## Development
 
