@@ -39,7 +39,11 @@ Before installation, you need to create `zabbix-monitoring` namespace in your cl
 $ kubectl create namespace zabbix-monitoring
 ```
 
+All Helm options/parameters are available in the [Helm folder here](./helm/).
+
 ### Install from local
+
+To install the chart with the release name `zabbix-kubernetes-discovery` from local Helm templates:
 
 ```bash
 $ helm upgrade --install zabbix-kubernetes-discovery \
@@ -53,6 +57,8 @@ $ helm upgrade --install zabbix-kubernetes-discovery \
 
 ### Install from repo
 
+To install the chart with the release name `zabbix-kubernetes-discovery` from Axians Helm repository:
+
 ```bash
 $ helm repo add acsp https://helm.acsp.io
 $ helm upgrade --install zabbix-kubernetes-discovery \
@@ -62,6 +68,17 @@ $ helm upgrade --install zabbix-kubernetes-discovery \
     --set environment.ZABBIX_ENDPOINT="zabbix-proxy.example.com" \
     --set environment.KUBERNETES_NAME="kubernetes-cluster-name"
 ```
+
+### Uninstall
+
+To uninstall/delete the `zabbix-kubernetes-discovery` deployment:
+
+```bash
+$ helm list -n zabbix-monitoring
+$ helm delete -n zabbix-monitoring zabbix-kubernetes-discovery
+```
+
+The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Zabbix
 
