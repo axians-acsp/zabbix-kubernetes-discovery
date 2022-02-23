@@ -82,6 +82,10 @@ def getVolume(name=None):
         node_json = json.loads(node_info)
 
         for pod in node_json['pods']:
+
+            if not "volume" in pod:
+                continue
+
             for volume in pod['volume']:
 
                 if not "pvcRef" in volume:
