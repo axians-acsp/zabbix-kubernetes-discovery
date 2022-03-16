@@ -55,10 +55,10 @@ $ helm delete zabbix-kubernetes-discovery \
 | `crontab.name`                 |              | string  | `zabbix-kubernetes-discovery`                               |
 | `crontab.schedule.discovery`   |              | string  | `0 * * * *`                                                 |
 | `crontab.schedule.item`        |              | string  | `*/3 * * * *`                                               |
-| `resources.requests.cpu`       |              | string  | `10m`                                                       |
-| `resources.requests.memory`    |              | string  | `32Mi`                                                      |
-| `resources.limits.cpu`         |              | string  | `500m`                                                      |
-| `resources.limits.memory`      |              | string  | `256Mi`                                                     |
+| `resources.requests.cpu`       |              | string  | `50m`                                                       |
+| `resources.requests.memory`    |              | string  | `128Mi`                                                     |
+| `resources.limits.cpu`         |              | string  | `1000m`                                                     |
+| `resources.limits.memory`      |              | string  | `1Gi`                                                       |
 | `nodeSelector`                 |              | dict    | `{}`                                                        |
 | `tolerations`                  |              | list    | `[]`                                                        |
 | `affinity`                     |              | dict    | `{}`                                                        |
