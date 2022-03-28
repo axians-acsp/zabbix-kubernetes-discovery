@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import argparse, sys, os, urllib3
+import argparse, sys, os
 from random import randint
 from time import sleep
 from kubernetes import config
@@ -17,8 +17,6 @@ parser.add_argument("--monitoring-type", dest="monitoring_type", action="store",
 parser.add_argument("--object-name", dest="object_name", action="store", required=False, help="Name of object in Kubernetes", default=None)
 parser.add_argument("--no-wait", dest="no_wait", action="store_true", required=False, help="Disable startup wait time", default=False)
 args = parser.parse_args()
-
-urllib3.disable_warnings()
 
 if os.path.exists("/var/run/secrets/kubernetes.io/serviceaccount/token"):
     config.load_incluster_config()
@@ -43,7 +41,7 @@ if __name__ == "__main__":
     if args.monitoring_mode == "node":
         if args.monitoring_type == "json":
             print("JSON output (node): {}".format(
-                getNode(client.CoreV1Api(), args.object_name)))
+                getNode(args.object_name)))
         if args.monitoring_type == "discovery":
             print("Zabbix discovery (node): {}".format(
                 zabbix.send(zabbixDiscoveryNode(args.kubernetes_name, getNode(args.object_name)))))
@@ -55,7 +53,7 @@ if __name__ == "__main__":
     if args.monitoring_mode == "daemonset":
         if args.monitoring_type == "json":
             print("JSON output (daemonset): {}".format(
-                getDaemonset(client.AppsV1Api(), args.object_name)))
+                getDaemonset(args.object_name)))
         if args.monitoring_type == "discovery":
             print("Zabbix discovery (daemonset): {}".format(
                 zabbix.send(zabbixDiscoveryDaemonset(args.kubernetes_name, getDaemonset(args.object_name)))))
@@ -67,7 +65,7 @@ if __name__ == "__main__":
     if args.monitoring_mode == "volume":
         if args.monitoring_type == "json":
             print("JSON output (volume): {}".format(
-                getVolume(client.CoreV1Api(), args.object_name)))
+                getVolume(args.object_name)))
         if args.monitoring_type == "discovery":
             print("Zabbix discovery (volume): {}".format(
                 zabbix.send(zabbixDiscoveryVolume(args.kubernetes_name, getVolume(args.object_name)))))
@@ -79,7 +77,7 @@ if __name__ == "__main__":
     if args.monitoring_mode == "deployment":
         if args.monitoring_type == "json":
             print("JSON output (deployment): {}".format(
-                getDeployment(client.AppsV1Api(), args.object_name)))
+                getDeployment(args.object_name)))
         if args.monitoring_type == "discovery":
             print("Zabbix discovery (deployment): {}".format(
                 zabbix.send(zabbixDiscoveryDeployment(args.kubernetes_name, getDeployment(args.object_name)))))

@@ -1,11 +1,12 @@
 from kubernetes import client
 import json
 
-def getNode(kubernetes=None, name=None):
+def getNode(name=None):
     """
     description: get all or specific node
     return: list
     """
+    kubernetes = client.CoreV1Api()
 
     nodes = []
 
@@ -31,11 +32,12 @@ def getNode(kubernetes=None, name=None):
     return nodes
 
 
-def getDaemonset(kubernetes=None, name=None):
+def getDaemonset(name=None):
     """
     description: get all or specific daemonset
     return: list
     """
+    kubernetes = client.AppsV1Api()
 
     daemonsets = []
 
@@ -66,11 +68,12 @@ def getDaemonset(kubernetes=None, name=None):
     return daemonsets
 
 
-def getVolume(kubernetes=None, name=None):
+def getVolume(name=None):
     """
     description: get all or specific persistent volume claim
     return: list
     """
+    kubernetes = client.CoreV1Api()
 
     volumes = []
 
@@ -107,11 +110,12 @@ def getVolume(kubernetes=None, name=None):
     return volumes
 
 
-def getDeployment(kubernetes=None, name=None):
+def getDeployment(name=None):
     """
     description: get all or specific deployment
     return: list
     """
+    kubernetes = client.AppsV1Api()
 
     deployments = []
 
