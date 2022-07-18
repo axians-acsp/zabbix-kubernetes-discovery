@@ -12,5 +12,5 @@ keywords:
 sources:
 - https://github.com/axians-acsp/zabbix-kubernetes-discovery
 maintainers:
-- name: Jeremy Chabernaud
-  email: jeremy.chabernaud@axians.com
+- name: Axians CSP DevOps
+  email: grp-axianscsp-devops@vinci-energies.com
