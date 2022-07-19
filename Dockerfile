@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 LABEL description="Zabbix Kubernetes Discovery" \
       maintainer="Axians Cloud Services Provider" \
