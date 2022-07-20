@@ -14,7 +14,7 @@ deployment:
   name: zabbix-kubernetes-discovery
   image:
     name: ghcr.io/axians-acsp/zabbix-kubernetes-discovery:v1.1.0
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   replicas: 1
   strategy: Recreate
 
