@@ -66,3 +66,18 @@ def zabbixItemDeployment(clustername, deployments=[]):
         sender.append(ZabbixMetric(clustername, "kubernetes.deployment.desiredReplicas[{}]".format(deployment['name']), deployment['replicas']['desired']),)
 
     return sender
+
+
+def zabbixItemStatefulset(clustername, statefulsets=[]):
+    """
+    description: create a item for statefulset
+    return: class ZabbixResponse
+    """
+    sender = []
+
+    for statefulset in statefulsets:
+        sender.append(ZabbixMetric(clustername, "kubernetes.statefulset.availableReplicas[{}]".format(statefulset['name']), statefulset['replicas']['available']),)
+        sender.append(ZabbixMetric(clustername, "kubernetes.statefulset.readyReplicas[{}]".format(statefulset['name']), statefulset['replicas']['ready']),)
+        sender.append(ZabbixMetric(clustername, "kubernetes.statefulset.desiredReplicas[{}]".format(statefulset['name']), statefulset['replicas']['desired']),)
+
+    return sender

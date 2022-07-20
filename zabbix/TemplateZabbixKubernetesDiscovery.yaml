@@ -1,6 +1,6 @@
 zabbix_export:
   version: '5.4'
-  date: '2022-02-22T11:12:37Z'
+  date: '2022-07-20T09:37:27Z'
   templates:
     -
       uuid: b7d6aacfdc234feaa5d5a062ab834532
@@ -658,6 +658,118 @@ zabbix_export:
                   item:
                     host: 'Template Zabbix Kubernetes Discovery'
                     key: 'kubernetes.volumeclaim.inodesUsed[{#KUBERNETES_PVC_NAME}]'
+        -
+          uuid: f9006f2307a74b67b385bfca4792f636
+          name: Statefulset
+          type: TRAP
+          key: kubernetes.statefulset.discovery
+          delay: '0'
+          description: 'Discovery of all Statefulset'
+          item_prototypes:
+            -
+              uuid: 50ce353145c049e7895f3aec566371f6
+              name: 'Statefulset {#KUBERNETES_STATEFULSET_NAME}: Available replicas'
+              type: TRAP
+              key: 'kubernetes.statefulset.availableReplicas[{#KUBERNETES_STATEFULSET_NAME}]'
+              delay: '0'
+              description: 'Replicas available on the statefulset.'
+              tags:
+                -
+                  tag: KubernetesObject
+                  value: Statefulset
+              trigger_prototypes:
+                -
+                  uuid: 785beca3b51d4ddf974b80593b9b7985
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.statefulset.availableReplicas[{#KUBERNETES_STATEFULSET_NAME}],900)=1'
+                  name: 'Statefulset {#KUBERNETES_STATEFULSET_NAME}: Available replicas nodata'
+                  priority: HIGH
+                  description: 'No data since 900 seconds for item available replicas on the statefulset.'
+                  manual_close: 'YES'
+                  tags:
+                    -
+                      tag: KubernetesObject
+                      value: Statefulset
+            -
+              uuid: 8d5903860a43471699fdc95dd90aabbf
+              name: 'Statefulset {#KUBERNETES_STATEFULSET_NAME}: Desired replicas'
+              type: TRAP
+              key: 'kubernetes.statefulset.desiredReplicas[{#KUBERNETES_STATEFULSET_NAME}]'
+              delay: '0'
+              description: 'Replicas desired on the statefulset.'
+              tags:
+                -
+                  tag: KubernetesObject
+                  value: Statefulset
+              trigger_prototypes:
+                -
+                  uuid: 07b56c4328ee4cbca2762580d7e07dda
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.statefulset.desiredReplicas[{#KUBERNETES_STATEFULSET_NAME}],900)=1'
+                  name: 'Statefulset {#KUBERNETES_STATEFULSET_NAME}: Desired replicas nodata'
+                  priority: HIGH
+                  description: 'No data since 900 seconds for item desired replicas on the statefulset.'
+                  manual_close: 'YES'
+                  tags:
+                    -
+                      tag: KubernetesObject
+                      value: Statefulset
+            -
+              uuid: c0caf71eded04b5e8c184f3f77127de9
+              name: 'Statefulset {#KUBERNETES_STATEFULSET_NAME}: Ready replicas'
+              type: TRAP
+              key: 'kubernetes.statefulset.readyReplicas[{#KUBERNETES_STATEFULSET_NAME}]'
+              delay: '0'
+              description: 'Replicas ready on the statefulset.'
+              tags:
+                -
+                  tag: KubernetesObject
+                  value: Statefulset
+              trigger_prototypes:
+                -
+                  uuid: 35a3ac60a1a147c299368ef5ddc54dcd
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.statefulset.readyReplicas[{#KUBERNETES_STATEFULSET_NAME}],900)=1'
+                  name: 'Statefulset {#KUBERNETES_STATEFULSET_NAME}: Ready replicas nodata'
+                  priority: HIGH
+                  description: 'No data since 900 seconds for item ready replicas on the statefulset.'
+                  manual_close: 'YES'
+                  tags:
+                    -
+                      tag: KubernetesObject
+                      value: Statefulset
+          trigger_prototypes:
+            -
+              uuid: 0494362e368c4f2db79d8a5150702125
+              expression: 'last(/Template Zabbix Kubernetes Discovery/kubernetes.statefulset.readyReplicas[{#KUBERNETES_STATEFULSET_NAME}]) < last(/Template Zabbix Kubernetes Discovery/kubernetes.statefulset.desiredReplicas[{#KUBERNETES_STATEFULSET_NAME}])'
+              name: 'Statefulset {#KUBERNETES_STATEFULSET_NAME}: Problem number of replicas'
+              priority: HIGH
+              description: 'Problem on the number of the replicas on the statefulset.'
+              manual_close: 'YES'
+              tags:
+                -
+                  tag: KubernetesObject
+                  value: Statefulset
+          graph_prototypes:
+            -
+              uuid: e8c1076eb6794291a2bff6c8d5208b11
+              name: 'Statefulset {#KUBERNETES_STATEFULSET_NAME}: Graph replicas'
+              graph_items:
+                -
+                  sortorder: '1'
+                  color: 1A7C11
+                  item:
+                    host: 'Template Zabbix Kubernetes Discovery'
+                    key: 'kubernetes.statefulset.availableReplicas[{#KUBERNETES_STATEFULSET_NAME}]'
+                -
+                  sortorder: '2'
+                  color: FFEB3B
+                  item:
+                    host: 'Template Zabbix Kubernetes Discovery'
+                    key: 'kubernetes.statefulset.desiredReplicas[{#KUBERNETES_STATEFULSET_NAME}]'
+                -
+                  sortorder: '3'
+                  color: 2774A4
+                  item:
+                    host: 'Template Zabbix Kubernetes Discovery'
+                    key: 'kubernetes.statefulset.readyReplicas[{#KUBERNETES_STATEFULSET_NAME}]'
       tags:
         -
           tag: Middleware

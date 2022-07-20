@@ -63,3 +63,19 @@ def zabbixDiscoveryDeployment(clustername, deployments=[]):
     sender = [ZabbixMetric(clustername, "kubernetes.deployment.discovery", json.dumps(discovery))]
 
     return sender
+
+
+def zabbixDiscoveryStatefulset(clustername, statefulsets=[]):
+    """
+    description: create a discovery for statefulset
+    return: class ZabbixMetric
+    """
+    discovery = {"data":[]}
+
+    for statefulset in statefulsets:
+        output = {"{#KUBERNETES_STATEFULSET_NAME}": statefulset['name']}
+        discovery['data'].append(output)
+
+    sender = [ZabbixMetric(clustername, "kubernetes.statefulset.discovery", json.dumps(discovery))]
+
+    return sender

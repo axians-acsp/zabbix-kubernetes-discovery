@@ -24,6 +24,7 @@ Kubernetes monitoring for Zabbix with discovery objects:
 * Nodes
 * DaemonSets
 * Deployments
+* StatefulSets
 * PersistentVolumeClaims
 
 Works with 2 variables only by default:
@@ -123,6 +124,18 @@ After downloading, you need to import it as below:
     * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Problem number of replicas`
   * Graphs: 1
     * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Graph replicas`
+* Statefulset
+  * Items: 3
+    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Available replicas`
+    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Desired replicas`
+    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Ready replicas`
+  * Triggers: 4
+    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Available replicas nodata`
+    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Desired replicas nodata`
+    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Ready replicas nodata`
+    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Problem number of replicas`
+  * Graphs: 1
+    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Graph replicas`
 * Node
   * Items: 7
     * `Node {#KUBERNETES_NODE_NAME}: Allocatable cpu`

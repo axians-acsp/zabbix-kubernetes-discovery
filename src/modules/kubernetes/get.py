@@ -143,3 +143,38 @@ def getDeployment(name=None):
         deployments.append(json)
 
     return deployments
+
+
+def getStatefulset(name=None):
+    """
+    description: get all or specific statefulset
+    return: list
+    """
+    kubernetes = client.AppsV1Api()
+
+    statefulsets = []
+
+    for statefulset in kubernetes.list_stateful_set_for_all_namespaces().items:
+
+        json = {
+            "name": statefulset.metadata.name,
+            "namespace": statefulset.metadata.namespace,
+            "replicas": {
+                "available": statefulset.status.current_replicas,
+                "ready": statefulset.status.ready_replicas,
+                "desired": statefulset.status.replicas
+            }
+        }
+
+        for i in ["desired", "ready", "available"]:
+            if json['replicas'][i] is None:
+                json['replicas'][i] = 0
+
+        if name == json['name']:
+            return [json]
+        if any(s['name'] == json['name'] for s in statefulsets):
+            continue
+
+        statefulsets.append(json)
+
+    return statefulsets
