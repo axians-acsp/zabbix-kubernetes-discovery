@@ -13,7 +13,7 @@
   <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/actions/workflows/helm.yml">
     <img alt="Pipeline Helm" src="https://img.shields.io/github/workflow/status/axians-acsp/zabbix-kubernetes-discovery/Helm%20Release?logo=github&color=0&label=Pipeline%20Helm&style=flat-square">
   </a>
-  <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/releases/tag/v0.0.1">
+  <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/releases/tag/v1.1.0">
     <img alt="Release" src="https://img.shields.io/github/v/release/axians-acsp/zabbix-kubernetes-discovery?logo=github&color=0&label=Release&style=flat-square">
   </a>
 </p>
