@@ -47,7 +47,7 @@ $ helm delete zabbix-kubernetes-discovery \
 | `serviceAccount.name`          |              | string  | `zabbix-kubernetes-discovery`                               |
 | `deployment.name`              |              | string  | `zabbix-kubernetes-discovery`                               |
 | `deployment.image.name`        |              | string  | `ghcr.io/axians-acsp/zabbix-kubernetes-discovery:v1.1.0`    |
-| `deployment.image.pullPolicy`  |              | string  | `Always`                                                    |
+| `deployment.image.pullPolicy`  |              | string  | `IfNotPresent`                                              |
 | `deployment.replicas`          |              | integer | `1`                                                         |
 | `deployment.strategy`          |              | string  | `Recreate`                                                  |
 | `environment.ZABBIX_ENDPOINT`  |              | string  | `""`                                                        |
