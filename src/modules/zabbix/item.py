@@ -81,3 +81,18 @@ def zabbixItemStatefulset(clustername, statefulsets=[]):
         sender.append(ZabbixMetric(clustername, "kubernetes.statefulset.desiredReplicas[{}]".format(statefulset['name']), statefulset['replicas']['desired']),)
 
     return sender
+
+
+def zabbixItemCronjob(clustername, cronjobs=[]):
+    """
+    description: create a item for cronjob
+    return: class ZabbixResponse
+    """
+    sender = []
+
+    for cronjob in cronjobs:
+        sender.append(ZabbixMetric(clustername, "kubernetes.cronjob.exitcode[{}]".format(cronjob['name']), cronjob['status']['status']['exitcode']),)
+        sender.append(ZabbixMetric(clustername, "kubernetes.cronjob.restart[{}]".format(cronjob['name']), cronjob['status']['status']['restart']),)
+        sender.append(ZabbixMetric(clustername, "kubernetes.cronjob.reason[{}]".format(cronjob['name']), cronjob['status']['status']['reason']),)
+
+    return sender

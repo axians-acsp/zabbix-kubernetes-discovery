@@ -1,4 +1,5 @@
 from kubernetes import client
+from datetime import datetime
 import json
 
 def getNode(name=None):
@@ -178,3 +179,75 @@ def getStatefulset(name=None):
         statefulsets.append(json)
 
     return statefulsets
+
+
+def getPodjob(name=None):
+    """
+    description: get all or specific pod from cronjob
+    return: list
+    """
+    kubernetes = client.CoreV1Api()
+
+    pods = []
+
+    for pod in kubernetes.list_pod_for_all_namespaces().items:
+
+        if not pod.metadata.owner_references:
+            continue
+
+        if not "Job" in pod.metadata.owner_references[0].kind:
+            continue
+
+        if name != pod.status.container_statuses[0].name:
+            continue
+
+        json = {
+            "name": pod.metadata.name,
+            "namespace": pod.metadata.namespace,
+            "status": {
+                "restart": pod.status.container_statuses[0].restart_count,
+                "exitcode": pod.status.container_statuses[0].state.terminated.exit_code,
+                "started": datetime.timestamp(pod.status.container_statuses[0].state.terminated.started_at),
+                "finished": datetime.timestamp(pod.status.container_statuses[0].state.terminated.finished_at),
+                "reason": pod.status.container_statuses[0].state.terminated.reason
+            }
+        }
+
+        pods.append(json)
+
+    return pods
+
+
+def getCronjob(name=None):
+    """
+    description: get all or specific cronjob
+    return: list
+    """
+    kubernetes = client.BatchV1beta1Api()
+
+    cronjobs = []
+
+    for cronjob in kubernetes.list_cron_job_for_all_namespaces().items:
+
+        pods_created = getPodjob(name=cronjob.metadata.name)
+        pods_finished, pod_latest = [], {}
+
+        for pod in pods_created:
+            pods_finished.append(pod['status']['finished'])
+
+        for pod in pods_created:
+            if pod['status']['finished'] == sorted(pods_finished)[-1]:
+                pod_latest = pod
+
+        json = {
+            "name": cronjob.metadata.name,
+            "namespace": cronjob.metadata.namespace,
+            "status": pod_latest
+        }
+
+        if name == json['name']:
+            return [json]
+
+        cronjobs.append(json)
+
+    return cronjobs
