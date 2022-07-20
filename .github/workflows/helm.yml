@@ -7,8 +7,8 @@ name: Helm Release
 
 on:
   push:
-    paths:
-      - 'helm/**'
+    tags:
+      - 'v*.*.*'
 
 jobs:
 
