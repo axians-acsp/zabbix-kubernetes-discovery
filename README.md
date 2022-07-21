@@ -28,6 +28,7 @@ Kubernetes monitoring for Zabbix with discovery objects:
 * DaemonSets
 * Deployments
 * StatefulSets
+* Cronjobs
 * PersistentVolumeClaims
 
 Works with 2 variables only by default:
@@ -139,6 +140,18 @@ After downloading, you need to import it as below:
     * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Problem number of replicas`
   * Graphs: 1
     * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Graph replicas`
+* Cronjob
+  * Items: 3
+    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job exitcode`
+    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job restart`
+    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job reason`
+  * Triggers: 4
+    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job exitcode nodata`
+    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job restart nodata`
+    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job reason nodata`
+    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Problem last job`
+  * Graphs: 1
+    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Graph jobs`
 * Node
   * Items: 7
     * `Node {#KUBERNETES_NODE_NAME}: Allocatable cpu`

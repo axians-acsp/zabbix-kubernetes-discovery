@@ -79,3 +79,19 @@ def zabbixDiscoveryStatefulset(clustername, statefulsets=[]):
     sender = [ZabbixMetric(clustername, "kubernetes.statefulset.discovery", json.dumps(discovery))]
 
     return sender
+
+
+def zabbixDiscoveryCronjob(clustername, cronjobs=[]):
+    """
+    description: create a discovery for cronjob
+    return: class ZabbixMetric
+    """
+    discovery = {"data":[]}
+
+    for cronjob in cronjobs:
+        output = {"{#KUBERNETES_CRONJOB_NAME}": cronjob['name']}
+        discovery['data'].append(output)
+
+    sender = [ZabbixMetric(clustername, "kubernetes.cronjob.discovery", json.dumps(discovery))]
+
+    return sender

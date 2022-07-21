@@ -1,6 +1,6 @@
 zabbix_export:
   version: '5.4'
-  date: '2022-07-20T09:37:27Z'
+  date: '2022-07-21T15:21:24Z'
   templates:
     -
       uuid: b7d6aacfdc234feaa5d5a062ab834532
@@ -11,6 +11,101 @@ zabbix_export:
         
         I recommend to associate this template on the first control-plane or a dedicated host where is the cluster (group).
       discovery_rules:
+        -
+          uuid: da80cdb0ec5c4ee68c3e88cd9d907386
+          name: Cronjob
+          type: TRAP
+          key: kubernetes.cronjob.discovery
+          delay: '0'
+          description: 'Discovery of all Cronjob'
+          item_prototypes:
+            -
+              uuid: 6ed92f4055364aaeb02d2b5b6e868428
+              name: 'Cronjob {#KUBERNETES_CRONJOB_NAME}: Last job exit code'
+              type: TRAP
+              key: 'kubernetes.cronjob.exitcode[{#KUBERNETES_CRONJOB_NAME}]'
+              delay: '0'
+              description: 'Last exit code on the cronjob.'
+              tags:
+                -
+                  tag: KubernetesObject
+                  value: Cronjob
+              trigger_prototypes:
+                -
+                  uuid: 2713c3203db54012ac2f1dcace7794f4
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.cronjob.exitcode[{#KUBERNETES_CRONJOB_NAME}],900)=1'
+                  name: 'Cronjob {#KUBERNETES_CRONJOB_NAME}: Last job exit code nodata'
+                  priority: HIGH
+                  description: 'No data since 900 seconds for item exit code on the cronjob.'
+                  manual_close: 'YES'
+                  tags:
+                    -
+                      tag: KubernetesObject
+                      value: Cronjob
+                -
+                  uuid: dafe30004fd442f3a9344554783f2bcc
+                  expression: 'last(/Template Zabbix Kubernetes Discovery/kubernetes.cronjob.exitcode[{#KUBERNETES_CRONJOB_NAME}],#900)<>0'
+                  name: 'Cronjob {#KUBERNETES_CRONJOB_NAME}: Problem last job exit code'
+                  priority: HIGH
+                  description: 'Problem during the last execution of the cronjob. Exit code is not equal to 0.'
+                  manual_close: 'YES'
+            -
+              uuid: 897ba892567b4deb998678c6bc01d82c
+              name: 'Cronjob {#KUBERNETES_CRONJOB_NAME}: Last job reason'
+              type: TRAP
+              key: 'kubernetes.cronjob.reason[{#KUBERNETES_CRONJOB_NAME}]'
+              delay: '0'
+              trends: '0'
+              value_type: TEXT
+              description: 'Last reason on the cronjob.'
+              tags:
+                -
+                  tag: KubernetesObject
+                  value: Cronjob
+              trigger_prototypes:
+                -
+                  uuid: 87957172d96f447d9f2653cfb0106b96
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.cronjob.reason[{#KUBERNETES_CRONJOB_NAME}],900)=1'
+                  name: 'Cronjob {#KUBERNETES_CRONJOB_NAME}: Last job reason nodata'
+                  priority: HIGH
+                  description: 'No data since 900 seconds for item reason on the cronjob.'
+                  manual_close: 'YES'
+            -
+              uuid: 27eab17286d4495a8b4cbd7d3914e538
+              name: 'Cronjob {#KUBERNETES_CRONJOB_NAME}: Last job restart count'
+              type: TRAP
+              key: 'kubernetes.cronjob.restart[{#KUBERNETES_CRONJOB_NAME}]'
+              delay: '0'
+              description: 'Last restart count of the cronjob.'
+              tags:
+                -
+                  tag: KubernetesObject
+                  value: Cronjob
+              trigger_prototypes:
+                -
+                  uuid: 6add1e3a7c4f45bc9e683c10deb78151
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.cronjob.restart[{#KUBERNETES_CRONJOB_NAME}],900)=1'
+                  name: 'Cronjob {#KUBERNETES_CRONJOB_NAME}: Last job restart count nodata'
+                  priority: HIGH
+                  description: 'No data since 900 seconds for item restart count on the cronjob.'
+                  manual_close: 'YES'
+          graph_prototypes:
+            -
+              uuid: 65e11c4d205e463a868381c7dfe0a88e
+              name: 'Cronjob {#KUBERNETES_CRONJOB_NAME}: Graphs exitcode/restartcount'
+              graph_items:
+                -
+                  sortorder: '1'
+                  color: FFFF00
+                  item:
+                    host: 'Template Zabbix Kubernetes Discovery'
+                    key: 'kubernetes.cronjob.exitcode[{#KUBERNETES_CRONJOB_NAME}]'
+                -
+                  sortorder: '2'
+                  color: F63100
+                  item:
+                    host: 'Template Zabbix Kubernetes Discovery'
+                    key: 'kubernetes.cronjob.restart[{#KUBERNETES_CRONJOB_NAME}]'
         -
           uuid: 54bdab339ea4474e94739785eda595c7
           name: Daemonset
