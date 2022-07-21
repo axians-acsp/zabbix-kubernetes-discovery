@@ -12,6 +12,7 @@ data:
     {{ .Values.crontab.schedule.discovery }}    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode daemonset --monitoring-type discovery
     {{ .Values.crontab.schedule.discovery }}    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode node --monitoring-type discovery
     {{ .Values.crontab.schedule.discovery }}    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode statefulset --monitoring-type discovery
+    {{ .Values.crontab.schedule.discovery }}    /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode cronjob --monitoring-type discovery
 
     # Zabbix item (default every 5 minutes)
     {{ .Values.crontab.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode volume --monitoring-type item
@@ -19,3 +20,4 @@ data:
     {{ .Values.crontab.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode daemonset --monitoring-type item
     {{ .Values.crontab.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode node --monitoring-type item
     {{ .Values.crontab.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode statefulset --monitoring-type item
+    {{ .Values.crontab.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-mode cronjob --monitoring-type item
