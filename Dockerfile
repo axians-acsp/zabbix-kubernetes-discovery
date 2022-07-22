@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 LABEL description="Zabbix Kubernetes Discovery" \
       maintainer="Axians Cloud Services Provider" \
@@ -6,11 +6,11 @@ LABEL description="Zabbix Kubernetes Discovery" \
 
 ENV ZABBIX_ENDPOINT=""
 ENV KUBERNETES_NAME=""
-ENV SUPERCRONIC_VER="0.1.12"
-ENV SUPERCRONIC_SHA="048b95b48b708983effb2e5c935a1ef8483d9e3e"
+ENV SUPERCRONIC_VER="0.2.1"
+ENV SUPERCRONIC_SHA="d7f4c0886eb85249ad05ed592902fa6865bb9d70"
 
 RUN apt update && \
-    apt install -y telnet curl wget less vim traceroute iputils-ping python3 python3-pip && \
+    apt install -y curl iputils-ping python3 python3-pip && \
     rm -rf /var/lib/apt/lists && \
     pip3 install requests kubernetes py-zabbix && \
     mkdir -p /app /root/.kube && \
