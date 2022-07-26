@@ -1,4 +1,5 @@
 FROM ubuntu:22.04
+
 LABEL description="Zabbix Kubernetes Discovery" \
       maintainer="Axians Cloud Services Provider" \
       repository="https://github.com/axians-acsp/zabbix-kubernetes-discovery"
@@ -11,7 +12,7 @@ ENV KUBERNETES_NAME=""
 ARG USER=zabbix
 ARG GROUP=zabbix
 
-RUN groupadd -g 2000 $GROUP && adduser -u 2000 -DG $GROUP $USER
+RUN addgroup -g 2000 $GROUP && adduser -u 2000 $USER && usermod -a -G $GROUP $USER
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl iputils-ping python3 python3-pip && \
