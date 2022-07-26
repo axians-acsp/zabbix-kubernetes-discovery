@@ -1,10 +1,4 @@
 FROM ubuntu:22.04
-
-ARG USER=zabbix
-ARG GROUP=zabbix
-RUN addgroup -g 2000 $GROUP && adduser -u 2000 -DG $GROUP $USER
-USER $USER:$GROUP
-
 LABEL description="Zabbix Kubernetes Discovery" \
       maintainer="Axians Cloud Services Provider" \
       repository="https://github.com/axians-acsp/zabbix-kubernetes-discovery"
@@ -13,6 +7,11 @@ WORKDIR /app
 
 ENV ZABBIX_ENDPOINT=""
 ENV KUBERNETES_NAME=""
+
+ARG USER=zabbix
+ARG GROUP=zabbix
+
+RUN groupadd -g 2000 $GROUP && adduser -u 2000 -DG $GROUP $USER
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl iputils-ping python3 python3-pip && \
@@ -34,3 +33,5 @@ COPY ./src/ /app/
 RUN chmod +x /app/*.py
 
 CMD ["/usr/local/bin/supercronic", "-split-logs", "-json", "/app/crontab"]
+
+USER $USER:$GROUP
