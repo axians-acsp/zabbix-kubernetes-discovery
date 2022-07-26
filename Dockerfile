@@ -1,5 +1,10 @@
 FROM ubuntu:22.04
 
+ARG USER=zabbix
+ARG GROUP=zabbix
+RUN addgroup -g 2000 $GROUP && adduser -u 2000 -DG $GROUP $USER
+USER $USER:$GROUP
+
 LABEL description="Zabbix Kubernetes Discovery" \
       maintainer="Axians Cloud Services Provider" \
       repository="https://github.com/axians-acsp/zabbix-kubernetes-discovery"
