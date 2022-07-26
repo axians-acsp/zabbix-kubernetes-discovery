@@ -15,6 +15,9 @@ def zabbixItemNode(clustername, nodes=[]):
         sender.append(ZabbixMetric(clustername, "kubernetes.node.allocatable.cpu[{}]".format(node['name']), node['allocatable']['cpu']),)
         sender.append(ZabbixMetric(clustername, "kubernetes.node.allocatable.memory[{}]".format(node['name']), node['allocatable']['memory']),)
         sender.append(ZabbixMetric(clustername, "kubernetes.node.allocatable.pods[{}]".format(node['name']), node['allocatable']['pods']),)
+        sender.append(ZabbixMetric(clustername, "kubernetes.node.current.pods[{}]".format(node['name']), node['current']['pods']),)
+        sender.append(ZabbixMetric(clustername, "kubernetes.node.current.podsUsed[{}]".format(node['name']), node['current']['pods_used']),)
+        sender.append(ZabbixMetric(clustername, "kubernetes.node.current.podsFree[{}]".format(node['name']), node['current']['pods_free']),)
 
     return sender
 
