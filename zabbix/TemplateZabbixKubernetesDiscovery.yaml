@@ -1,6 +1,6 @@
 zabbix_export:
   version: '5.4'
-  date: '2022-07-21T15:21:24Z'
+  date: '2022-07-28T14:42:37Z'
   templates:
     -
       uuid: b7d6aacfdc234feaa5d5a062ab834532
@@ -390,13 +390,23 @@ zabbix_export:
               key: 'kubernetes.node.allocatable.pods[{#KUBERNETES_NODE_NAME}]'
               delay: '0'
               history: 1d
-              trends: '0'
-              value_type: TEXT
               description: 'Allocatable pods on the node (history restricted to 1 day)'
               tags:
                 -
                   tag: KubernetesObject
                   value: Node
+              trigger_prototypes:
+                -
+                  uuid: 285807ef91ab412a951f91dd5cac94db
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.node.allocatable.pods[{#KUBERNETES_NODE_NAME}],900)=1'
+                  name: 'Node {#KUBERNETES_NODE_NAME}: Allocatable pods nodata'
+                  priority: HIGH
+                  description: 'No data since 900 seconds for item allocatable pods on the node.'
+                  manual_close: 'YES'
+                  tags:
+                    -
+                      tag: KubernetesObject
+                      value: Node
             -
               uuid: 8a5646c38b6846da9ea058335ad986f3
               name: 'Node {#KUBERNETES_NODE_NAME}: Capacity cpu'
@@ -432,13 +442,47 @@ zabbix_export:
               key: 'kubernetes.node.capacity.pods[{#KUBERNETES_NODE_NAME}]'
               delay: '0'
               history: 1d
-              trends: '0'
-              value_type: TEXT
               description: 'Capacity pods on the node (history restricted to 1 day)'
               tags:
                 -
                   tag: KubernetesObject
                   value: Node
+              trigger_prototypes:
+                -
+                  uuid: ee19f268bfc047ed83339cd63e02a3bc
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.node.capacity.pods[{#KUBERNETES_NODE_NAME}],900)=1'
+                  name: 'Node {#KUBERNETES_NODE_NAME}: Capacity pods nodata'
+                  priority: HIGH
+                  description: 'No data since 900 seconds for item capacity pods on the node.'
+                  manual_close: 'YES'
+                  tags:
+                    -
+                      tag: KubernetesObject
+                      value: Node
+            -
+              uuid: 22c7e2710f444456b7af8f8f5fe87496
+              name: 'Node {#KUBERNETES_NODE_NAME}: Current pods'
+              type: TRAP
+              key: 'kubernetes.node.current.pods[{#KUBERNETES_NODE_NAME}]'
+              delay: '0'
+              history: 1d
+              description: 'Current pods on the node (history restricted to 1 day)'
+              tags:
+                -
+                  tag: KubernetesObject
+                  value: Node
+              trigger_prototypes:
+                -
+                  uuid: 916d4807694e4992b705973afe16bcb1
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.node.current.pods[{#KUBERNETES_NODE_NAME}],900)=1'
+                  name: 'Node {#KUBERNETES_NODE_NAME}: Current pods nodata'
+                  priority: HIGH
+                  description: 'No data since 900 seconds for item current pods on the node.'
+                  manual_close: 'YES'
+                  tags:
+                    -
+                      tag: KubernetesObject
+                      value: Node
             -
               uuid: bcbad954256e48319330a7a014da595f
               name: 'Node {#KUBERNETES_NODE_NAME}: Healthz'
@@ -473,7 +517,7 @@ zabbix_export:
                       value: Node
                 -
                   uuid: b4a1df24a83d4f5495ff4e1f3c4f353c
-                  expression: 'find(/Template Zabbix Kubernetes Discovery/kubernetes.node.healthz[{#KUBERNETES_NODE_NAME}],,"like","ok") = 0'
+                  expression: 'find(/Template Zabbix Kubernetes Discovery/kubernetes.node.healthz[{#KUBERNETES_NODE_NAME}],,"like","ok")=0'
                   name: 'Node {#KUBERNETES_NODE_NAME}: Health problem'
                   priority: HIGH
                   description: 'Health problem on the node.'
@@ -481,6 +525,56 @@ zabbix_export:
                     -
                       tag: KubernetesObject
                       value: Node
+          trigger_prototypes:
+            -
+              uuid: 67aa7708ed7d42fe94688e62af3c3db0
+              expression: 'last(/Template Zabbix Kubernetes Discovery/kubernetes.node.current.pods[{#KUBERNETES_NODE_NAME}]) * 100 / last(/Template Zabbix Kubernetes Discovery/kubernetes.node.allocatable.pods[{#KUBERNETES_NODE_NAME}]) >= {$KUBERNETES.NODE.PODS.CRITICAL}'
+              name: 'Node {#KUBERNETES_NODE_NAME}: Problem pods limits critical'
+              priority: HIGH
+              description: 'Critical pods limits reached on the node.'
+              manual_close: 'YES'
+              tags:
+                -
+                  tag: KubernetesObject
+                  value: Node
+            -
+              uuid: ede5beb360544f5ea7cf39cec4e74a4f
+              expression: 'last(/Template Zabbix Kubernetes Discovery/kubernetes.node.current.pods[{#KUBERNETES_NODE_NAME}]) * 100 / last(/Template Zabbix Kubernetes Discovery/kubernetes.node.allocatable.pods[{#KUBERNETES_NODE_NAME}]) >= {$KUBERNETES.NODE.PODS.WARNING}'
+              name: 'Node {#KUBERNETES_NODE_NAME}: Problem pods limits warning'
+              priority: WARNING
+              description: 'Warning pods limits reached on the node.'
+              manual_close: 'YES'
+              dependencies:
+                -
+                  name: 'Node {#KUBERNETES_NODE_NAME}: Problem pods limits critical'
+                  expression: 'last(/Template Zabbix Kubernetes Discovery/kubernetes.node.current.pods[{#KUBERNETES_NODE_NAME}]) * 100 / last(/Template Zabbix Kubernetes Discovery/kubernetes.node.allocatable.pods[{#KUBERNETES_NODE_NAME}]) >= {$KUBERNETES.NODE.PODS.CRITICAL}'
+              tags:
+                -
+                  tag: KubernetesObject
+                  value: Node
+          graph_prototypes:
+            -
+              uuid: 45d0a65fb0244684ae376541cc7f89fe
+              name: 'Node {#KUBERNETES_NODE_NAME}: Graph pods'
+              graph_items:
+                -
+                  sortorder: '1'
+                  color: FF8F00
+                  item:
+                    host: 'Template Zabbix Kubernetes Discovery'
+                    key: 'kubernetes.node.allocatable.pods[{#KUBERNETES_NODE_NAME}]'
+                -
+                  sortorder: '2'
+                  color: 1A7C11
+                  item:
+                    host: 'Template Zabbix Kubernetes Discovery'
+                    key: 'kubernetes.node.capacity.pods[{#KUBERNETES_NODE_NAME}]'
+                -
+                  sortorder: '3'
+                  color: 7B1FA2
+                  item:
+                    host: 'Template Zabbix Kubernetes Discovery'
+                    key: 'kubernetes.node.current.pods[{#KUBERNETES_NODE_NAME}]'
         -
           uuid: 9b5ddbc61c7f4463aba6d0871169234d
           name: VolumeClaim
@@ -871,8 +965,14 @@ zabbix_export:
           value: Kubernetes
         -
           tag: Version
-          value: '5.4'
+          value: 1.3.0
       macros:
+        -
+          macro: '{$KUBERNETES.NODE.PODS.CRITICAL}'
+          value: '95'
+        -
+          macro: '{$KUBERNETES.NODE.PODS.WARNING}'
+          value: '85'
         -
           macro: '{$KUBERNETES.VOLUME.BYTES.CRITICAL}'
           value: '90'

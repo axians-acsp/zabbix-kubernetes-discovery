@@ -153,18 +153,25 @@ After downloading, you need to import it as below:
   * Graphs: 1
     * `Deployment {#KUBERNETES_CRONJOB_NAME}: Graph jobs`
 * Node
-  * Items: 7
+  * Items: 8
     * `Node {#KUBERNETES_NODE_NAME}: Allocatable cpu`
     * `Node {#KUBERNETES_NODE_NAME}: Allocatable memory`
     * `Node {#KUBERNETES_NODE_NAME}: Allocatable pods`
     * `Node {#KUBERNETES_NODE_NAME}: Capacity cpu`
     * `Node {#KUBERNETES_NODE_NAME}: Capacity memory`
     * `Node {#KUBERNETES_NODE_NAME}: Capacity pods`
+    * `Node {#KUBERNETES_NODE_NAME}: Current pods`
     * `Node {#KUBERNETES_NODE_NAME}: Healthz`
-  * Triggers: 2
+  * Triggers: 7
+    * `Node {#KUBERNETES_NODE_NAME}: Allocatable pods nodata`
+    * `Node {#KUBERNETES_NODE_NAME}: Capacity pods nodata`
+    * `Node {#KUBERNETES_NODE_NAME}: Current pods nodata`
+    * `Node {#KUBERNETES_NODE_NAME}: Problem pods limits warning`
+    * `Node {#KUBERNETES_NODE_NAME}: Problem pods limits critical`
     * `Node {#KUBERNETES_NODE_NAME}: Health nodata`
     * `Node {#KUBERNETES_NODE_NAME}: Health problem`
-  * Graphs: 0
+  * Graphs: 1
+    * `Node {#KUBERNETES_NODE_NAME}: Graph pods`
 * VolumeClaim
   * Items: 6
     * `Volume {#KUBERNETES_PVC_NAME}: Available bytes`
