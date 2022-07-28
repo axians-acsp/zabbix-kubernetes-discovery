@@ -13,14 +13,20 @@ def getNode(name=None):
 
     for node in kubernetes.list_node().items:
         node_healthz = kubernetes.connect_get_node_proxy_with_path(name=node.metadata.name, path="healthz")
-        node_status = kubernetes.read_node_status(name=node.metadata.name)
+        node_status  = kubernetes.read_node_status(name=node.metadata.name)
+        node_pods    = kubernetes.list_pod_for_all_namespaces(field_selector="spec.nodeName={}".format(node.metadata.name))
 
         json = {
             "name": node.metadata.name,
             "uid": node.metadata.uid,
             "status": node_healthz,
             "capacity": node_status.status.capacity,
-            "allocatable": node_status.status.allocatable
+            "allocatable": node_status.status.allocatable,
+            "current": {
+                "pods": str(len(node_pods.items)),
+                "pods_used": str(round(len(node_pods.items) * 100 / int(node_status.status.allocatable['pods']), 1)),
+                "pods_free": str(round(100 - (len(node_pods.items) * 100 / int(node_status.status.allocatable['pods'])), 1))
+            }
         }
 
         if name == json['name']:
