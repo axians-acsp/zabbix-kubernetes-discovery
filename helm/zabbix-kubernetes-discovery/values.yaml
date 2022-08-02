@@ -24,9 +24,42 @@ environment:
 
 crontab:
   name: zabbix-kubernetes-discovery
-  schedule:
-    discovery: '0 * * * *'
-    item: '*/3 * * * *'
+  config:
+    node:
+      schedule:
+        discovery: '0 * * * *'
+        item: '*/5 * * * *'
+      exclude_name: ''
+    daemonset:
+      schedule:
+        discovery: '0 * * * *'
+        item: '*/5 * * * *'
+      exclude_name: ''
+      exclude_namespace: ''
+    volume:
+      schedule:
+        discovery: '0 * * * *'
+        item: '*/5 * * * *'
+      exclude_name: ''
+      exclude_namespace: ''
+    deployment:
+      schedule:
+        discovery: '0 * * * *'
+        item: '*/5 * * * *'
+      exclude_name: ''
+      exclude_namespace: ''
+    statefulset:
+      schedule:
+        discovery: '0 * * * *'
+        item: '*/5 * * * *'
+      exclude_name: ''
+      exclude_namespace: ''
+    cronjob:
+      schedule:
+        discovery: '0 * * * *'
+        item: '*/5 * * * *'
+      exclude_name: ''
+      exclude_namespace: ''
 
 resources:
   requests:
