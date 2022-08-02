@@ -158,7 +158,7 @@ def getDeployment(name=None, exclude_name=None, exclude_namespace=None):
         if exclude_name is not None and json['name'] in exclude_name.split(","):
             continue
 
-        if exclude_namespace in not None and json['namespace'] in exclude_namespace.split(","):
+        if exclude_namespace is not None and json['namespace'] in exclude_namespace.split(","):
             continue
 
         for i in ["desired", "ready", "available"]:
