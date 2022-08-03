@@ -5,10 +5,6 @@ def ifObjectMatch(object_list=None, object_name=None):
     description: check if the object is in list
     return: bool
     """
-
-    print(object_list)
-    print(object_name)
-
     if object_list is None or object_list == "" or object_list == "*":
         return False
 
