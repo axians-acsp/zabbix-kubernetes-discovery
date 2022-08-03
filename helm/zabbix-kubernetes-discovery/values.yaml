@@ -22,9 +22,43 @@ environment:
   ZABBIX_ENDPOINT:
   KUBERNETES_NAME:
 
+monitoring:
+  node:
+    exclude_name: ''
+  daemonset:
+    exclude_name: ''
+    exclude_namespace: ''
+  volume:
+    exclude_name: ''
+    exclude_namespace: ''
+  deployment:
+    exclude_name: ''
+    exclude_namespace: ''
+  statefulset:
+    exclude_name: ''
+    exclude_namespace: ''
+  cronjob:
+    exclude_name: ''
+    exclude_namespace: ''
+
 crontab:
   name: zabbix-kubernetes-discovery
-  schedule:
+  node:
+    discovery: '0 * * * *'
+    item: '*/3 * * * *'
+  daemonset:
+    discovery: '0 * * * *'
+    item: '*/3 * * * *'
+  volume:
+    discovery: '0 * * * *'
+    item: '*/3 * * * *'
+  deployment:
+    discovery: '0 * * * *'
+    item: '*/3 * * * *'
+  statefulset:
+    discovery: '0 * * * *'
+    item: '*/3 * * * *'
+  cronjob:
     discovery: '0 * * * *'
     item: '*/3 * * * *'
 

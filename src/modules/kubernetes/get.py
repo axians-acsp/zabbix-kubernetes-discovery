@@ -2,7 +2,7 @@ from kubernetes import client
 from datetime import datetime
 import json
 
-def getNode(name=None):
+def getNode(name=None, exclude_name=None):
     """
     description: get all or specific node
     return: list
@@ -29,8 +29,12 @@ def getNode(name=None):
             }
         }
 
+        if exclude_name is not None and json['name'] in exclude_name.split(","):
+            continue
+
         if name == json['name']:
             return [json]
+
         if any(n['name'] == json['name'] for n in nodes):
             continue
 
@@ -39,7 +43,7 @@ def getNode(name=None):
     return nodes
 
 
-def getDaemonset(name=None):
+def getDaemonset(name=None, exclude_name=None, exclude_namespace=None):
     """
     description: get all or specific daemonset
     return: list
@@ -65,8 +69,15 @@ def getDaemonset(name=None):
             if json['replicas'][i] is None:
                 json['replicas'][i] = 0
 
+        if exclude_name is not None and json['name'] in exclude_name.split(","):
+            continue
+
+        if exclude_namespace is not None and json['namespace'] in exclude_namespace.split(","):
+            continue
+
         if name == json['name']:
             return [json]
+
         if any(d['name'] == json['name'] for d in daemonsets):
             continue
 
@@ -75,7 +86,7 @@ def getDaemonset(name=None):
     return daemonsets
 
 
-def getVolume(name=None):
+def getVolume(name=None, exclude_name=None, exclude_namespace=None):
     """
     description: get all or specific persistent volume claim
     return: list
@@ -100,6 +111,12 @@ def getVolume(name=None):
                 else:
                     volume['namespace'] = volume['pvcRef']['namespace']
 
+                if exclude_name is not None and volume['name'] in exclude_name.split(","):
+                    continue
+
+                if exclude_namespace is not None and volume['namespace'] in  exclude_namespace.split(","):
+                    continue
+
                 for i in ["time", "pvcRef"]:
                     del volume[i]
 
@@ -117,7 +134,7 @@ def getVolume(name=None):
     return volumes
 
 
-def getDeployment(name=None):
+def getDeployment(name=None, exclude_name=None, exclude_namespace=None):
     """
     description: get all or specific deployment
     return: list
@@ -138,12 +155,19 @@ def getDeployment(name=None):
             }
         }
 
+        if exclude_name is not None and json['name'] in exclude_name.split(","):
+            continue
+
+        if exclude_namespace is not None and json['namespace'] in exclude_namespace.split(","):
+            continue
+
         for i in ["desired", "ready", "available"]:
             if json['replicas'][i] is None:
                 json['replicas'][i] = 0
 
         if name == json['name']:
             return [json]
+
         if any(d['name'] == json['name'] for d in deployments):
             continue
 
@@ -152,7 +176,7 @@ def getDeployment(name=None):
     return deployments
 
 
-def getStatefulset(name=None):
+def getStatefulset(name=None, exclude_name=None, exclude_namespace=None):
     """
     description: get all or specific statefulset
     return: list
@@ -173,12 +197,19 @@ def getStatefulset(name=None):
             }
         }
 
+        if exclude_name is not None and json['name'] in exclude_name.split(","):
+            continue
+
+        if exclude_namespace is not None and json['namespace'] in exclude_namespace.split(","):
+            continue
+
         for i in ["desired", "ready", "available"]:
             if json['replicas'][i] is None:
                 json['replicas'][i] = 0
 
         if name == json['name']:
             return [json]
+
         if any(s['name'] == json['name'] for s in statefulsets):
             continue
 
@@ -224,7 +255,7 @@ def getPodjob(name=None):
     return pods
 
 
-def getCronjob(name=None):
+def getCronjob(name=None, exclude_name=None, exclude_namespace=None):
     """
     description: get all or specific cronjob
     return: list
@@ -250,6 +281,12 @@ def getCronjob(name=None):
             "namespace": cronjob.metadata.namespace,
             "status": pod_latest
         }
+
+        if exclude_name is not None and json['name'] in exclude_name.split(","):
+            continue
+
+        if exclude_namespace is not None and json['namespace'] in exclude_namespace.split(","):
+            continue
 
         if name == json['name']:
             return [json]
