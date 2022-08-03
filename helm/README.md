@@ -53,29 +53,29 @@ $ helm delete zabbix-kubernetes-discovery \
 | `environment.ZABBIX_ENDPOINT`                     | string  | `""`                                                        |
 | `environment.KUBERNETES_NAME`                     | string  | `""`                                                        |
 | `crontab.name`                                    | string  | `zabbix-kubernetes-discovery`                               |
-| `crontab.config.node.schedule.discovery`          | string  | `0 * * * *`                                                 |
-| `crontab.config.node.schedule.item`               | string  | `*/5 * * * *`                                               |
-| `crontab.config.node.exclude_name`                | string  | `""`                                                        |
-| `crontab.config.daemonset.schedule.discovery`     | string  | `0 * * * *`                                                 |
-| `crontab.config.daemonset.schedule.item`          | string  | `*/5 * * * *`                                               |
-| `crontab.config.daemonset.exclude_name`           | string  | `""`                                                        |
-| `crontab.config.daemonset.exclude_namespace`      | string  | `""`                                                        |
-| `crontab.config.volume.schedule.discovery`        | string  | `0 * * * *`                                                 |
-| `crontab.config.volume.schedule.item`             | string  | `*/5 * * * *`                                               |
-| `crontab.config.volume.exclude_name`              | string  | `""`                                                        |
-| `crontab.config.volume.exclude_namespace`         | string  | `""`                                                        |
-| `crontab.config.deployment.schedule.discovery`    | string  | `0 * * * *`                                                 |
-| `crontab.config.deployment.schedule.item`         | string  | `*/5 * * * *`                                               |
-| `crontab.config.deployment.exclude_name`          | string  | `""`                                                        |
-| `crontab.config.deployment.exclude_namespace`     | string  | `""`                                                        |
-| `crontab.config.statefulset.schedule.discovery`   | string  | `0 * * * *`                                                 |
-| `crontab.config.statefulset.schedule.item`        | string  | `*/5 * * * *`                                               |
-| `crontab.config.statefulset.exclude_name`         | string  | `""`                                                        |
-| `crontab.config.statefulset.exclude_namespace`    | string  | `""`                                                        |
-| `crontab.config.cronjob.schedule.discovery`       | string  | `0 * * * *`                                                 |
-| `crontab.config.cronjob.schedule.item`            | string  | `*/5 * * * *`                                               |
-| `crontab.config.cronjob.exclude_name`             | string  | `""`                                                        |
-| `crontab.config.cronjob.exclude_namespace`        | string  | `""`                                                        |
+| `crontab.node.discovery`                          | string  | `0 * * * *`                                                 |
+| `crontab.node.item`                               | string  | `*/3 * * * *`                                               |
+| `crontab.daemonset.discovery`                     | string  | `0 * * * *`                                                 |
+| `crontab.daemonset.item`                          | string  | `*/3 * * * *`                                               |
+| `crontab.volume.discovery`                        | string  | `0 * * * *`                                                 |
+| `crontab.volume.item`                             | string  | `*/3 * * * *`                                               |
+| `crontab.deployment.discovery`                    | string  | `0 * * * *`                                                 |
+| `crontab.deployment.item`                         | string  | `*/3 * * * *`                                               |
+| `crontab.statefulset.discovery`                   | string  | `0 * * * *`                                                 |
+| `crontab.statefulset.item`                        | string  | `*/3 * * * *`                                               |
+| `crontab.cronjob.discovery`                       | string  | `0 * * * *`                                                 |
+| `crontab.cronjob.item`                            | string  | `*/3 * * * *`                                               |
+| `monitoring.node.exclude_name`                    | string  | `""`                                                        |
+| `monitoring.daemonset.exclude_name`               | string  | `""`                                                        |
+| `monitoring.daemonset.exclude_namespace`          | string  | `""`                                                        |
+| `monitoring.volume.exclude_name`                  | string  | `""`                                                        |
+| `monitoring.volume.exclude_namespace`             | string  | `""`                                                        |
+| `monitoring.deployment.exclude_name`              | string  | `""`                                                        |
+| `monitoring.deployment.exclude_namespace`         | string  | `""`                                                        |
+| `monitoring.statefulset.exclude_name`             | string  | `""`                                                        |
+| `monitoring.statefulset.exclude_namespace`        | string  | `""`                                                        |
+| `monitoring.cronjob.exclude_name`                 | string  | `""`                                                        |
+| `monitoring.cronjob.exclude_namespace`            | string  | `""`                                                        |
 | `resources.requests.cpu`                          | string  | `50m`                                                       |
 | `resources.requests.memory`                       | string  | `128Mi`                                                     |
 | `resources.limits.cpu`                            | string  | `1000m`                                                     |

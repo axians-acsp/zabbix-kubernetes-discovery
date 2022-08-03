@@ -6,42 +6,62 @@ metadata:
     app: {{ .Values.deployment.name }}
 data:
   crontab: |
-    # Zabbix discovery
-    {{- if .Values.crontab.config.node }}
-    {{ .Values.crontab.config.node.schedule.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode node --exclude-name={{ .Values.crontab.config.node.exclude_name }}
-    {{- end }}
-    {{- if .Values.crontab.config.daemonset }}
-    {{ .Values.crontab.config.daemonset.schedule.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode daemonset --exclude-name={{ .Values.crontab.config.daemonset.exclude_name }} --exclude-namespace={{ .Values.crontab.config.daemonset.exclude_namespace }}
-    {{- end }}
-    {{- if .Values.crontab.config.volume }}
-    {{ .Values.crontab.config.daemonset.schedule.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode volume --exclude-name={{ .Values.crontab.config.volume.exclude_name }} --exclude-namespace={{ .Values.crontab.config.volume.exclude_namespace }}
-    {{- end }}
-    {{- if .Values.crontab.config.deployment }}
-    {{ .Values.crontab.config.deployment.schedule.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode deployment --exclude-name={{ .Values.crontab.config.deployment.exclude_name }} --exclude-namespace={{ .Values.crontab.config.deployment.exclude_namespace }}
-    {{- end }}
-    {{- if .Values.crontab.config.statefulset }}
-    {{ .Values.crontab.config.statefulset.schedule.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode statefulset --exclude-name={{ .Values.crontab.config.statefulset.exclude_name }} --exclude-namespace={{ .Values.crontab.config.statefulset.exclude_namespace }}
-    {{- end }}
-    {{- if .Values.crontab.config.cronjob }}
-    {{ .Values.crontab.config.cronjob.schedule.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode cronjob --exclude-name={{ .Values.crontab.config.cronjob.exclude_name }} --exclude-namespace={{ .Values.crontab.config.cronjob.exclude_namespace }}
+    # node discovery
+    {{- if .Values.crontab.node.discovery }}
+    {{ .Values.crontab.node.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode node {{- if ne .Values.monitoring.node.exclude_name "" }} --exclude-name={{ .Values.monitoring.node.exclude_name }}{{- end }}
     {{- end }}
 
-    # Zabbix item
-    {{- if .Values.crontab.config.node }}
-    {{ .Values.crontab.config.node.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode node --exclude-name={{ .Values.crontab.config.node.exclude_name }}
+    # daemonset discovery
+    {{- if .Values.crontab.daemonset.discovery }}
+    {{ .Values.crontab.daemonset.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode daemonset {{- if ne .Values.monitoring.daemonset.exclude_name "" }} --exclude-name={{ .Values.monitoring.daemonset.exclude_name }}{{- end }} {{- if ne .Values.monitoring.daemonset.exclude_namespace "" }} --exclude-namespace={{ .Values.monitoring.daemonset.exclude_namespace }}{{- end }}
     {{- end }}
-    {{- if .Values.crontab.config.daemonset }}
-    {{ .Values.crontab.config.daemonset.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode daemonset --exclude-name={{ .Values.crontab.config.daemonset.exclude_name }} --exclude-namespace={{ .Values.crontab.config.daemonset.exclude_namespace }}
+
+    # volume discovery
+    {{- if .Values.crontab.volume.discovery }}
+    {{ .Values.crontab.volume.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode volume {{- if ne .Values.monitoring.volume.exclude_name "" }} --exclude-name={{ .Values.monitoring.volume.exclude_name }}{{- end }} {{- if ne .Values.monitoring.volume.exclude_namespace "" }} --exclude-namespace={{ .Values.monitoring.volume.exclude_namespace }}{{- end }}
     {{- end }}
-    {{- if .Values.crontab.config.volume }}
-    {{ .Values.crontab.config.daemonset.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode volume --exclude-name={{ .Values.crontab.config.volume.exclude_name }} --exclude-namespace={{ .Values.crontab.config.volume.exclude_namespace }}
+
+    # deployment discovery
+    {{- if .Values.crontab.deployment.discovery }}
+    {{ .Values.crontab.deployment.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode deployment {{- if ne .Values.monitoring.deployment.exclude_name "" }} --exclude-name={{ .Values.monitoring.deployment.exclude_name }}{{- end }} {{- if ne .Values.monitoring.deployment.exclude_namespace "" }} --exclude-namespace={{ .Values.monitoring.deployment.exclude_namespace }}{{- end }}
     {{- end }}
-    {{- if .Values.crontab.config.deployment }}
-    {{ .Values.crontab.config.deployment.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode deployment --exclude-name={{ .Values.crontab.config.deployment.exclude_name }} --exclude-namespace={{ .Values.crontab.config.deployment.exclude_namespace }}
+
+    # statefulset discovery
+    {{- if .Values.crontab.statefulset.discovery }}
+    {{ .Values.crontab.statefulset.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode statefulset {{- if ne .Values.monitoring.statefulset.exclude_name "" }} --exclude-name={{ .Values.monitoring.statefulset.exclude_name }}{{- end }} {{- if ne .Values.monitoring.statefulset.exclude_namespace "" }} --exclude-namespace={{ .Values.monitoring.statefulset.exclude_namespace }}{{- end }}
     {{- end }}
-    {{- if .Values.crontab.config.statefulset }}
-    {{ .Values.crontab.config.statefulset.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode statefulset --exclude-name={{ .Values.crontab.config.statefulset.exclude_name }} --exclude-namespace={{ .Values.crontab.config.statefulset.exclude_namespace }}
+
+    # cronjob discovery
+    {{- if .Values.crontab.cronjob.discovery }}
+    {{ .Values.crontab.cronjob.discovery }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type discovery --monitoring-mode cronjob {{- if ne .Values.monitoring.cronjob.exclude_name "" }} --exclude-name={{ .Values.monitoring.cronjob.exclude_name }}{{- end }} {{- if ne .Values.monitoring.cronjob.exclude_namespace "" }} --exclude-namespace={{ .Values.monitoring.cronjob.exclude_namespace }}{{- end }}
     {{- end }}
-    {{- if .Values.crontab.config.cronjob }}
-    {{ .Values.crontab.config.cronjob.schedule.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode cronjob --exclude-name={{ .Values.crontab.config.cronjob.exclude_name }} --exclude-namespace={{ .Values.crontab.config.cronjob.exclude_namespace }}
+
+    # node item
+    {{- if .Values.crontab.node.item }}
+    {{ .Values.crontab.node.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode node {{- if ne .Values.monitoring.node.exclude_name "" }} --exclude-name={{ .Values.monitoring.node.exclude_name }}{{- end }}
+    {{- end }}
+
+    # daemonset item
+    {{- if .Values.crontab.daemonset.item }}
+    {{ .Values.crontab.daemonset.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode daemonset {{- if ne .Values.monitoring.daemonset.exclude_name "" }} --exclude-name={{ .Values.monitoring.daemonset.exclude_name }}{{- end }} {{- if ne .Values.monitoring.daemonset.exclude_namespace "" }} --exclude-namespace={{ .Values.monitoring.daemonset.exclude_namespace }}{{- end }}
+    {{- end }}
+
+    # volume item
+    {{- if .Values.crontab.volume.item }}
+    {{ .Values.crontab.volume.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode volume {{- if ne .Values.monitoring.volume.exclude_name "" }} --exclude-name={{ .Values.monitoring.volume.exclude_name }}{{- end }} {{- if ne .Values.monitoring.volume.exclude_namespace "" }} --exclude-namespace={{ .Values.monitoring.volume.exclude_namespace }}{{- end }}
+    {{- end }}
+
+    # deployment item
+    {{- if .Values.crontab.deployment.item }}
+    {{ .Values.crontab.deployment.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode deployment {{- if ne .Values.monitoring.deployment.exclude_name "" }} --exclude-name={{ .Values.monitoring.deployment.exclude_name }}{{- end }} {{- if ne .Values.monitoring.deployment.exclude_namespace "" }} --exclude-namespace={{ .Values.monitoring.deployment.exclude_namespace }}{{- end }}
+    {{- end }}
+
+    # statefulset item
+    {{- if .Values.crontab.statefulset.item }}
+    {{ .Values.crontab.statefulset.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode statefulset {{- if ne .Values.monitoring.statefulset.exclude_name "" }} --exclude-name={{ .Values.monitoring.statefulset.exclude_name }}{{- end }} {{- if ne .Values.monitoring.statefulset.exclude_namespace "" }} --exclude-namespace={{ .Values.monitoring.statefulset.exclude_namespace }}{{- end }}
+    {{- end }}
+
+    # cronjob item
+    {{- if .Values.crontab.cronjob.item }}
+    {{ .Values.crontab.cronjob.item }}  /usr/bin/python3 /app/zabbix-kubernetes-discovery.py --zabbix-endpoint ${ZABBIX_ENDPOINT} --kubernetes-name ${KUBERNETES_NAME} --monitoring-type item --monitoring-mode cronjob {{- if ne .Values.monitoring.cronjob.exclude_name "" }} --exclude-name={{ .Values.monitoring.cronjob.exclude_name }}{{- end }} {{- if ne .Values.monitoring.cronjob.exclude_namespace "" }} --exclude-namespace={{ .Values.monitoring.cronjob.exclude_namespace }}{{- end }}
     {{- end }}

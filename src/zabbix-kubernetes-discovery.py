@@ -18,6 +18,7 @@ parser.add_argument("--object-name", dest="object_name", action="store", require
 parser.add_argument("--exclude-name", dest="exclude_name", action="store", required=False, help="Exclude object name in Kubernetes", default=None)
 parser.add_argument("--exclude-namespace", dest="exclude_namespace", action="store", required=False, help="Exclude namespace in Kubernetes", default=None)
 parser.add_argument("--no-wait", dest="no_wait", action="store_true", required=False, help="Disable startup wait time", default=False)
+parser.add_argument("--verbose", dest="verbose", action="store_true", required=False, help="Verbose output", default=False)
 args = parser.parse_args()
 
 if os.path.exists("/var/run/secrets/kubernetes.io/serviceaccount/token"):
@@ -36,7 +37,7 @@ if __name__ == "__main__":
     # Random sleep between 0 and 15 seconds
     if args.no_wait == False:
         timewait = randint(0,15)
-        print("Starting in {} second(s)...".format(timewait))
+        if args.verbose: print("Starting in {} second(s)...".format(timewait))
         sleep(timewait)
 
     # Node
@@ -110,3 +111,4 @@ if __name__ == "__main__":
         if args.monitoring_type == "item":
             print("Zabbix item (cronjob): {}".format(
                 zabbix.send(zabbixItemCronjob(args.kubernetes_name, getCronjob(args.object_name, args.exclude_name, args.exclude_namespace)))))
+
