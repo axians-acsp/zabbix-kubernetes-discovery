@@ -13,7 +13,7 @@
   <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/actions/workflows/helm.yml">
     <img alt="Pipeline Helm" src="https://img.shields.io/github/workflow/status/axians-acsp/zabbix-kubernetes-discovery/Helm%20Release?logo=github&color=0&label=Pipeline%20Helm&style=flat-square">
   </a>
-  <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/releases/tag/v1.2.0">
+  <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/releases/tag/v1.3.0">
     <img alt="Release" src="https://img.shields.io/github/v/release/axians-acsp/zabbix-kubernetes-discovery?logo=github&color=0&label=Release&style=flat-square">
   </a>
 </p>
@@ -109,11 +109,12 @@ After downloading, you need to import it as below:
     * `Daemonset {#KUBERNETES_DAEMONSET_NAME}: Current replicas`
     * `Daemonset {#KUBERNETES_DAEMONSET_NAME}: Desired replicas`
     * `Daemonset {#KUBERNETES_DAEMONSET_NAME}: Ready replicas`
-  * Triggers: 4
+  * Triggers: 5
     * `Daemonset {#KUBERNETES_DAEMONSET_NAME}: Available replicas nodata`
     * `Daemonset {#KUBERNETES_DAEMONSET_NAME}: Current replicas nodata`
     * `Daemonset {#KUBERNETES_DAEMONSET_NAME}: Desired replicas nodata`
     * `Daemonset {#KUBERNETES_DAEMONSET_NAME}: Ready replicas nodata`
+    * `Daemonset {#KUBERNETES_DAEMONSET_NAME}: Problem items nodata`
   * Graphs: 1
     * `Daemonset {#KUBERNETES_DAEMONSET_NAME}: Graph replicas`
 * Deployment
@@ -121,37 +122,40 @@ After downloading, you need to import it as below:
     * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Available replicas`
     * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Desired replicas`
     * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Ready replicas`
-  * Triggers: 4
+  * Triggers: 5
     * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Available replicas nodata`
     * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Desired replicas nodata`
     * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Ready replicas nodata`
+    * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Problem items nodata`
     * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Problem number of replicas`
   * Graphs: 1
     * `Deployment {#KUBERNETES_DEPLOYMENT_NAME}: Graph replicas`
 * Statefulset
   * Items: 3
-    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Available replicas`
-    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Desired replicas`
-    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Ready replicas`
-  * Triggers: 4
-    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Available replicas nodata`
-    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Desired replicas nodata`
-    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Ready replicas nodata`
-    * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Problem number of replicas`
+    * `Statefulset {#KUBERNETES_STATEFULSET_NAME}: Available replicas`
+    * `Statefulset {#KUBERNETES_STATEFULSET_NAME}: Desired replicas`
+    * `Statefulset {#KUBERNETES_STATEFULSET_NAME}: Ready replicas`
+  * Triggers: 5
+    * `Statefulset {#KUBERNETES_STATEFULSET_NAME}: Available replicas nodata`
+    * `Stetafulset {#KUBERNETES_STATEFULSET_NAME}: Desired replicas nodata`
+    * `Statefulset {#KUBERNETES_STATEFULSET_NAME}: Ready replicas nodata`
+    * `Statefulset {#KUBERNETES_STATEFULSET_NAME}: Problem items nodata`
+    * `Statefulset {#KUBERNETES_STATEFULSET_NAME}: Problem number of replicas`
   * Graphs: 1
     * `Deployment {#KUBERNETES_STATEFULSET_NAME}: Graph replicas`
 * Cronjob
   * Items: 3
-    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job exitcode`
-    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job restart`
-    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job reason`
-  * Triggers: 4
-    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job exitcode nodata`
-    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job restart nodata`
-    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Job reason nodata`
-    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Problem last job`
+    * `Cronjob {#KUBERNETES_CRONJOB_NAME}: Job exitcode`
+    * `Cronjob {#KUBERNETES_CRONJOB_NAME}: Job restart`
+    * `Cronjob {#KUBERNETES_CRONJOB_NAME}: Job reason`
+  * Triggers: 5
+    * `Cronjob {#KUBERNETES_CRONJOB_NAME}: Job exitcode nodata`
+    * `Cronjob {#KUBERNETES_CRONJOB_NAME}: Job restart nodata`
+    * `Cronjob {#KUBERNETES_CRONJOB_NAME}: Job reason nodata`
+    * `Cronjob {#KUBERNETES_CRONJOB_NAME}: Problem items nodata`
+    * `Cronjob {#KUBERNETES_CRONJOB_NAME}: Problem last job`
   * Graphs: 1
-    * `Deployment {#KUBERNETES_CRONJOB_NAME}: Graph jobs`
+    * `Cronjob {#KUBERNETES_CRONJOB_NAME}: Graph jobs`
 * Node
   * Items: 8
     * `Node {#KUBERNETES_NODE_NAME}: Allocatable cpu`
@@ -162,7 +166,7 @@ After downloading, you need to import it as below:
     * `Node {#KUBERNETES_NODE_NAME}: Capacity pods`
     * `Node {#KUBERNETES_NODE_NAME}: Current pods`
     * `Node {#KUBERNETES_NODE_NAME}: Healthz`
-  * Triggers: 7
+  * Triggers: 8
     * `Node {#KUBERNETES_NODE_NAME}: Allocatable pods nodata`
     * `Node {#KUBERNETES_NODE_NAME}: Capacity pods nodata`
     * `Node {#KUBERNETES_NODE_NAME}: Current pods nodata`
@@ -170,6 +174,7 @@ After downloading, you need to import it as below:
     * `Node {#KUBERNETES_NODE_NAME}: Problem pods limits critical`
     * `Node {#KUBERNETES_NODE_NAME}: Health nodata`
     * `Node {#KUBERNETES_NODE_NAME}: Health problem`
+    * `Node {#KUBERNETES_NODE_NAME}: Problem items nodata`
   * Graphs: 1
     * `Node {#KUBERNETES_NODE_NAME}: Graph pods`
 * VolumeClaim
@@ -180,7 +185,7 @@ After downloading, you need to import it as below:
     * `Volume {#KUBERNETES_PVC_NAME}: Free inodes`
     * `Volume {#KUBERNETES_PVC_NAME}: Used bytes`
     * `Volume {#KUBERNETES_PVC_NAME}: Used inodes`
-  * Triggers: 10
+  * Triggers: 11
     * `Volume {#KUBERNETES_PVC_NAME}: Available bytes nodata`
     * `Volume {#KUBERNETES_PVC_NAME}: Capacity bytes nodata`
     * `Volume {#KUBERNETES_PVC_NAME}: Capacity inodes nodata`
@@ -191,6 +196,7 @@ After downloading, you need to import it as below:
     * `Volume {#KUBERNETES_PVC_NAME}: Free inodes nodata`
     * `Volume {#KUBERNETES_PVC_NAME}: Used bytes nodata`
     * `Volume {#KUBERNETES_PVC_NAME}: Used inodes nodata`
+    * `Volume {#KUBERNETES_PVC_NAME}: Problem items nodata`
   * Graphs: 2
     * `Volume {#KUBERNETES_PVC_NAME}: Graph bytes`
     * `Volume {#KUBERNETES_PVC_NAME}: Graph inodes`
