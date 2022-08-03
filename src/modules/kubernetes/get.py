@@ -1,5 +1,6 @@
 from kubernetes import client
 from datetime import datetime
+from modules.common.functions import *
 import json
 
 def getNode(name=None, exclude_name=None):
@@ -29,7 +30,7 @@ def getNode(name=None, exclude_name=None):
             }
         }
 
-        if exclude_name is not None and json['name'] in exclude_name.split(","):
+        if ifObjectMatch(exclude_name, json['name']):
             continue
 
         if name == json['name']:
@@ -69,10 +70,10 @@ def getDaemonset(name=None, exclude_name=None, exclude_namespace=None):
             if json['replicas'][i] is None:
                 json['replicas'][i] = 0
 
-        if exclude_name is not None and json['name'] in exclude_name.split(","):
+        if ifObjectMatch(exclude_name, json['name']):
             continue
 
-        if exclude_namespace is not None and json['namespace'] in exclude_namespace.split(","):
+        if ifObjectMatch(exclude_namespace, json['namespace']):
             continue
 
         if name == json['name']:
@@ -111,10 +112,10 @@ def getVolume(name=None, exclude_name=None, exclude_namespace=None):
                 else:
                     volume['namespace'] = volume['pvcRef']['namespace']
 
-                if exclude_name is not None and volume['name'] in exclude_name.split(","):
+                if ifObjectMatch(exclude_name, volume['name']):
                     continue
 
-                if exclude_namespace is not None and volume['namespace'] in  exclude_namespace.split(","):
+                if ifObjectMatch(exclude_namespace, volume['namespace']):
                     continue
 
                 for i in ["time", "pvcRef"]:
@@ -155,10 +156,10 @@ def getDeployment(name=None, exclude_name=None, exclude_namespace=None):
             }
         }
 
-        if exclude_name is not None and json['name'] in exclude_name.split(","):
+        if ifObjectMatch(exclude_name, json['name']):
             continue
 
-        if exclude_namespace is not None and json['namespace'] in exclude_namespace.split(","):
+        if ifObjectMatch(exclude_namespace, json['namespace']):
             continue
 
         for i in ["desired", "ready", "available"]:
@@ -197,10 +198,10 @@ def getStatefulset(name=None, exclude_name=None, exclude_namespace=None):
             }
         }
 
-        if exclude_name is not None and json['name'] in exclude_name.split(","):
+        if ifObjectMatch(exclude_name, json['name']):
             continue
 
-        if exclude_namespace is not None and json['namespace'] in exclude_namespace.split(","):
+        if ifObjectMatch(exclude_namespace, json['namespace']):
             continue
 
         for i in ["desired", "ready", "available"]:
@@ -282,10 +283,10 @@ def getCronjob(name=None, exclude_name=None, exclude_namespace=None):
             "status": pod_latest
         }
 
-        if exclude_name is not None and json['name'] in exclude_name.split(","):
+        if ifObjectMatch(exclude_name, json['name']):
             continue
 
-        if exclude_namespace is not None and json['namespace'] in exclude_namespace.split(","):
+        if ifObjectMatch(exclude_namespace, json['namespace']):
             continue
 
         if name == json['name']:
