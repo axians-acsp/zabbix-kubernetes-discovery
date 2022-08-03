@@ -53,7 +53,7 @@ zabbix_export:
                       value: Cronjob
                 -
                   uuid: dafe30004fd442f3a9344554783f2bcc
-                  expression: 'last(/Template Zabbix Kubernetes Discovery/kubernetes.cronjob.exitcode[{#KUBERNETES_CRONJOB_NAME}],#900)<>0'
+                  expression: 'last(/Template Zabbix Kubernetes Discovery/kubernetes.cronjob.exitcode[{#KUBERNETES_CRONJOB_NAME}],#3)<>0'
                   name: 'Cronjob {#KUBERNETES_CRONJOB_NAME}: Problem last job exit code'
                   priority: HIGH
                   description: 'Problem during the last execution of the cronjob. Exit code is not equal to 0.'
@@ -78,7 +78,7 @@ zabbix_export:
               trigger_prototypes:
                 -
                   uuid: e820b3d2804343eaa8280f74cab045ef
-                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.cronjob.reason[{#KUBERNETES_CRONJOB_NAME}],{#KUBERNETES.TIMEOUT.NODATA})=1'
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.cronjob.reason[{#KUBERNETES_CRONJOB_NAME}],{$KUBERNETES.TIMEOUT.NODATA})=1'
                   name: 'Cronjob {#KUBERNETES_CRONJOB_NAME}: Last job reason nodata'
                   priority: HIGH
                   description: 'No data since 900 seconds (by default) for cronjob reason item.'
@@ -1205,7 +1205,7 @@ zabbix_export:
               trigger_prototypes:
                 -
                   uuid: 785beca3b51d4ddf974b80593b9b7985
-                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.statefulset.availableReplicas[{#KUBERNETES_STATEFULSET_NAME}],{$KUBERNETES.TIMEOUT_NODATA})=1'
+                  expression: 'nodata(/Template Zabbix Kubernetes Discovery/kubernetes.statefulset.availableReplicas[{#KUBERNETES_STATEFULSET_NAME}],{$KUBERNETES.TIMEOUT.NODATA})=1'
                   name: 'Statefulset {#KUBERNETES_STATEFULSET_NAME}: Available replicas nodata'
                   priority: HIGH
                   description: 'No data since 900 seconds (by default) for item available replicas on the statefulset.'
