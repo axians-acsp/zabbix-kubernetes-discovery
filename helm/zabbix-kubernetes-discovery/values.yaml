@@ -21,6 +21,7 @@ deployment:
 environment:
   ZABBIX_ENDPOINT:
   KUBERNETES_NAME:
+  #KUBECONFIG: "<kubeconfig_base64>"
 
 monitoring:
   node:
