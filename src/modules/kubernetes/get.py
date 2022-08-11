@@ -1,7 +1,9 @@
 from kubernetes import client
 from datetime import datetime
 from modules.common.functions import *
-import json
+import json, urllib3
+
+urllib3.disable_warnings()
 
 def getNode(name=None, exclude_name=None):
     """

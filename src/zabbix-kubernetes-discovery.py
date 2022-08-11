@@ -21,23 +21,26 @@ parser.add_argument("--no-wait", dest="no_wait", action="store_true", required=F
 parser.add_argument("--verbose", dest="verbose", action="store_true", required=False, help="Verbose output", default=False)
 args = parser.parse_args()
 
-if os.path.exists("/var/run/secrets/kubernetes.io/serviceaccount/token"):
+if os.path.exists("/var/run/secrets/kubernetes.io/serviceaccount/token") and not os.getenv('KUBECONFIG'):
     config.load_incluster_config()
+    if args.verbose: print("Loading credentials from ServiceAccount")
 else:
     try:
         config.load_kube_config()
+        if args.verbose: print("Loading credentials from KUBECONFIG")
     except:
         print("Unable to find kubernetes cluster configuration")
         sys.exit(1)
 
 zabbix = ZabbixSender(args.zabbix_endpoint)
+if args.verbose: print(f"Use zabbix endpoint: {args.zabbix_endpoint}")
 
 if __name__ == "__main__":
 
     # Random sleep between 0 and 15 seconds
     if args.no_wait == False:
         timewait = randint(0,15)
-        if args.verbose: print("Starting in {} second(s)...".format(timewait))
+        if args.verbose: print(f"Starting in {timewait} second(s)...")
         sleep(timewait)
 
     # Node
