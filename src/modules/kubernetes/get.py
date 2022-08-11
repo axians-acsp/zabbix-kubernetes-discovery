@@ -113,6 +113,7 @@ def getVolume(name=None, exclude_name=None, exclude_namespace=None):
                     continue
                 else:
                     volume['namespace'] = volume['pvcRef']['namespace']
+                    volume['name'] = volume['pvcRef']['name']
 
                 if ifObjectMatch(exclude_name, volume['name']):
                     continue
