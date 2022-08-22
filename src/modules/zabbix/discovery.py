@@ -19,13 +19,15 @@ def zabbixDiscoveryNode(clustername, nodes=[]):
 
 def zabbixDiscoveryDaemonset(clustername, daemonsets=[]):
     """
-    description: create a discovery for daemonset
+    description: create a discovery for daemonset, per namespace
     return: class ZabbixMetric
     """
     discovery = {"data":[]}
 
     for daemonset in daemonsets:
-        output = {"{#KUBERNETES_DAEMONSET_NAME}": daemonset['name']}
+        output = {
+            "{#KUBERNETES_DAEMONSET_NAMESPACE}": daemonset['namespace'],
+            "{#KUBERNETES_DAEMONSET_NAME}": daemonset['name']}
         discovery['data'].append(output)
 
     sender = [ZabbixMetric(clustername, "kubernetes.daemonset.discovery", json.dumps(discovery))]
@@ -35,13 +37,15 @@ def zabbixDiscoveryDaemonset(clustername, daemonsets=[]):
 
 def zabbixDiscoveryVolume(clustername, volumes=[]):
     """
-    description: create a discovery for persistent volume claim
+    description: create a discovery for persistent volume claim, per namespace
     return: class ZabbixMetric
     """
     discovery = {"data":[]}
 
     for volume in volumes:
-        output = {"{#KUBERNETES_PVC_NAME}": volume['name']}
+        output = {
+            "{#KUBERNETES_PVC_NAMESPACE}": volume['namespace'],
+            "{#KUBERNETES_PVC_NAME}": volume['name']}
         discovery['data'].append(output)
 
     sender = [ZabbixMetric(clustername, "kubernetes.pvc.discovery", json.dumps(discovery))]
@@ -51,13 +55,15 @@ def zabbixDiscoveryVolume(clustername, volumes=[]):
 
 def zabbixDiscoveryDeployment(clustername, deployments=[]):
     """
-    description: create a discovery for deployment
+    description: create a discovery for deployment, per namespace
     return: class ZabbixMetric
     """
     discovery = {"data":[]}
 
     for deployment in deployments:
-        output = {"{#KUBERNETES_DEPLOYMENT_NAME}": deployment['name']}
+        output = {
+            "{#KUBERNETES_DEPLOYMENT_NAMESPACE}": deployment['namespace'],
+            "{#KUBERNETES_DEPLOYMENT_NAME}": deployment['name']}
         discovery['data'].append(output)
 
     sender = [ZabbixMetric(clustername, "kubernetes.deployment.discovery", json.dumps(discovery))]
@@ -67,13 +73,15 @@ def zabbixDiscoveryDeployment(clustername, deployments=[]):
 
 def zabbixDiscoveryStatefulset(clustername, statefulsets=[]):
     """
-    description: create a discovery for statefulset
+    description: create a discovery for statefulset, per namespace
     return: class ZabbixMetric
     """
     discovery = {"data":[]}
 
     for statefulset in statefulsets:
-        output = {"{#KUBERNETES_STATEFULSET_NAME}": statefulset['name']}
+        output = {
+            "{#KUBERNETES_STATEFULSET_NAMESPACE}": statefulset['namespace'],
+            "{#KUBERNETES_STATEFULSET_NAME}": statefulset['name']}
         discovery['data'].append(output)
 
     sender = [ZabbixMetric(clustername, "kubernetes.statefulset.discovery", json.dumps(discovery))]
@@ -83,13 +91,15 @@ def zabbixDiscoveryStatefulset(clustername, statefulsets=[]):
 
 def zabbixDiscoveryCronjob(clustername, cronjobs=[]):
     """
-    description: create a discovery for cronjob
+    description: create a discovery for cronjob, per namespace
     return: class ZabbixMetric
     """
     discovery = {"data":[]}
 
     for cronjob in cronjobs:
-        output = {"{#KUBERNETES_CRONJOB_NAME}": cronjob['name']}
+        output = {
+            "{#KUBERNETES_CRONJOB_NAMESPACE}": cronjob['namespace'],
+            "{#KUBERNETES_CRONJOB_NAME}": cronjob['name']}
         discovery['data'].append(output)
 
     sender = [ZabbixMetric(clustername, "kubernetes.cronjob.discovery", json.dumps(discovery))]
