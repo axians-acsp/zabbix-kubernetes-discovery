@@ -484,7 +484,7 @@ zabbix_export:
                   value: Deployment
             -
               uuid: 1a2124fb40e3461da08ce6db3eb83f09
-              expression: 'last(/Template Zabbix Kubernetes Discovery/kubernetes.deployment.readyReplicas[{#KUBERNETES_DEPLOYMENT_NAMESPACE},{#KUBERNETES_DEPLOYMENT_NAME}]) < last(/Template Zabbix Kubernetes Discovery/kubernetes.deployment.desiredReplicas[{#KUBERNETES_DEPLOYMENT_NAME}])'
+              expression: 'last(/Template Zabbix Kubernetes Discovery/kubernetes.deployment.readyReplicas[{#KUBERNETES_DEPLOYMENT_NAMESPACE},{#KUBERNETES_DEPLOYMENT_NAME}]) < last(/Template Zabbix Kubernetes Discovery/kubernetes.deployment.desiredReplicas[{#KUBERNETES_DEPLOYMENT_NAMESPACE},{#KUBERNETES_DEPLOYMENT_NAME}])'
               name: 'Deployment {#KUBERNETES_DEPLOYMENT_NAMESPACE}/{#KUBERNETES_DEPLOYMENT_NAME}: Problem number of replicas'
               priority: HIGH
               description: 'Problem on the number of the replicas on the deployment.'
@@ -1351,7 +1351,7 @@ zabbix_export:
           value: Kubernetes
         -
           tag: Version
-          value: 1.3.4
+          value: 1.4.0
       macros:
         -
           macro: '{$KUBERNETES.NODE.PODS.CRITICAL}'
