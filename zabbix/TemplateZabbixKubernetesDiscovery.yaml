@@ -1,6 +1,10 @@
 zabbix_export:
   version: '5.4'
   date: '2022-08-22T17:13:34Z'
+  groups:
+    -
+      uuid: 56f8489d42224d24902e80448aa03b3d
+      name: Kubernetes
   templates:
     -
       uuid: b7d6aacfdc234feaa5d5a062ab834532
@@ -10,6 +14,9 @@ zabbix_export:
         Template for Kubernetes (k3s, k8s, aks, eks, ...) monitoring for Zabbix. Based on discovery rules with a custom container to deploy on the cluster.
         
         I recommend to associate this template on the first control-plane or a dedicated host where is the cluster (group).
+      groups:
+        -
+          name: Kubernetes
       discovery_rules:
         -
           uuid: da80cdb0ec5c4ee68c3e88cd9d907386
