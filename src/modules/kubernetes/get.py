@@ -81,7 +81,7 @@ def getDaemonset(name=None, exclude_name=None, exclude_namespace=None):
         if name == json['name']:
             return [json]
 
-        if any(d['name'] == json['name'] for d in daemonsets):
+        if any(d['name'] == json['name'] and d['namespace'] == json['namespace'] for d in daemonsets):
             continue
 
         daemonsets.append(json)
@@ -127,7 +127,7 @@ def getVolume(name=None, exclude_name=None, exclude_namespace=None):
                 if name == volume['name']:
                     return [volume]
 
-                if any(v['name'] == volume['name'] for v in volumes):
+                if any(v['name'] == volume['name'] and v['namespace'] == volume['namespace'] for v in volumes):
                     continue
                 
                 if "-token-" in volume['name']:
@@ -172,7 +172,7 @@ def getDeployment(name=None, exclude_name=None, exclude_namespace=None):
         if name == json['name']:
             return [json]
 
-        if any(d['name'] == json['name'] for d in deployments):
+        if any(d['name'] == json['name'] and d['namespace'] == json['namespace'] for d in deployments):
             continue
 
         deployments.append(json)
@@ -214,7 +214,7 @@ def getStatefulset(name=None, exclude_name=None, exclude_namespace=None):
         if name == json['name']:
             return [json]
 
-        if any(s['name'] == json['name'] for s in statefulsets):
+        if any(s['name'] == json['name'] and s['namespace'] == json['namespace'] for s in statefulsets):
             continue
 
         statefulsets.append(json)
