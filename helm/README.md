@@ -52,6 +52,9 @@ $ helm delete zabbix-kubernetes-discovery \
 | `deployment.strategy`                             | string  | `Recreate`                                                  |
 | `environment.ZABBIX_ENDPOINT`                     | string  | `""`                                                        |
 | `environment.KUBERNETES_NAME`                     | string  | `""`                                                        |
+| `zabbix.timeout`                                  | integer | `5`                                                         |
+| `zabbix.verbose`                                  | string  | `no`                                                        |
+| `zabbix.debug`                                    | string  | `no`                                                        |
 | `crontab.name`                                    | string  | `zabbix-kubernetes-discovery`                               |
 | `crontab.node.discovery`                          | string  | `0 * * * *`                                                 |
 | `crontab.node.item`                               | string  | `*/3 * * * *`                                               |

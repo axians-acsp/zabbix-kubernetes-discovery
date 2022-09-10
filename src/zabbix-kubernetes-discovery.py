@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import argparse, sys, os
+import argparse, sys, os, logging
 from random import randint
 from time import sleep
 from kubernetes import config
@@ -10,6 +10,7 @@ from modules.zabbix.item import *
 from modules.zabbix.discovery import *
 
 parser = argparse.ArgumentParser()
+parser.add_argument("--zabbix-timeout", dest="zabbix_timeout", action="store", required=False, help="Set Zabbix timeout", default=5)
 parser.add_argument("--zabbix-endpoint", dest="zabbix_endpoint", action="store", required=True, help="Set Zabbix endpoint (server)")
 parser.add_argument("--kubernetes-name", dest="kubernetes_name", action="store", required=True, help="Set Kubernetes cluster name in Zabbix")
 parser.add_argument("--monitoring-mode", dest="monitoring_mode", action="store", required=True, help="Mode of monitoring", choices=["volume","deployment","daemonset","node","statefulset","cronjob"])
@@ -19,7 +20,14 @@ parser.add_argument("--exclude-name", dest="exclude_name", action="store", requi
 parser.add_argument("--exclude-namespace", dest="exclude_namespace", action="store", required=False, help="Exclude namespace in Kubernetes", default=None)
 parser.add_argument("--no-wait", dest="no_wait", action="store_true", required=False, help="Disable startup wait time", default=False)
 parser.add_argument("--verbose", dest="verbose", action="store_true", required=False, help="Verbose output", default=False)
+parser.add_argument("--debug", dest="debug", action="store_true", required=False, help="Debug output for Zabbix", default=False)
 args = parser.parse_args()
+
+if args.debug:
+    logger = logging.getLogger("pyzabbix")
+    logger.setLevel(logging.DEBUG)
+    handler = logging.StreamHandler(sys.stdout)
+    logger.addHandler(handler)
 
 if os.path.exists("/var/run/secrets/kubernetes.io/serviceaccount/token") and not os.getenv('KUBECONFIG'):
     config.load_incluster_config()
@@ -34,6 +42,10 @@ else:
 
 zabbix = ZabbixSender(args.zabbix_endpoint)
 if args.verbose: print(f"Use zabbix endpoint: {args.zabbix_endpoint}")
+
+if args.zabbix_timeout:
+    zabbix.timeout = int(args.zabbix_timeout)
+    if args.verbose: print(f"Use zabbix timeout: {args.zabbix_timeout}")
 
 if __name__ == "__main__":
 
