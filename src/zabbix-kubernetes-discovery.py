@@ -31,21 +31,21 @@ if args.debug:
 
 if os.path.exists("/var/run/secrets/kubernetes.io/serviceaccount/token") and not os.getenv('KUBECONFIG'):
     config.load_incluster_config()
-    if args.verbose: print("Loading credentials from ServiceAccount")
+    if args.verbose: print("Kubernetes credentials from ServiceAccount")
 else:
     try:
         config.load_kube_config()
-        if args.verbose: print("Loading credentials from KUBECONFIG")
+        if args.verbose: print("Kubernetes credentials from KUBECONFIG")
     except:
         print("Unable to find kubernetes cluster configuration")
         sys.exit(1)
 
 zabbix = ZabbixSender(args.zabbix_endpoint)
-if args.verbose: print(f"Use zabbix endpoint: {args.zabbix_endpoint}")
-
-if args.zabbix_timeout:
-    zabbix.timeout = int(args.zabbix_timeout)
-    if args.verbose: print(f"Use zabbix timeout: {args.zabbix_timeout}")
+if args.zabbix_timeout: zabbix.timeout = int(args.zabbix_timeout)
+if args.verbose:
+    print(f"Zabbix endpoint: {args.zabbix_endpoint}")
+    print(f"Zabbix timeout: {args.zabbix_timeout}")
+    print(f"Kubernetes name: {args.kubernetes_name}")
 
 if __name__ == "__main__":
 
