@@ -23,6 +23,11 @@ environment:
   KUBERNETES_NAME:
   #KUBECONFIG: "<kubeconfig_base64>"
 
+zabbix:
+  timeout: 5
+  verbose: 'no'
+  debug: 'no'
+
 monitoring:
   node:
     exclude_name: ''
