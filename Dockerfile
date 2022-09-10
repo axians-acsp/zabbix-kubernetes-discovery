@@ -36,4 +36,3 @@ RUN chmod +x /app/*.py && \
 USER ${CONTAINER_USER}:${CONTAINER_GROUP}
 
 CMD ["/usr/local/bin/supercronic", "-split-logs", "-json", "/app/crontab"]
-
