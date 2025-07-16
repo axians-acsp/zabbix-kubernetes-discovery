@@ -26,4 +26,4 @@ jobs:
           charts_url: https://helm.acsp.io
           owner: ${{ secrets.HELM_PUBLISH_OWNER }}
           repository: charts
-          branch: main
+          branch: stable
