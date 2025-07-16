@@ -1,31 +1,15 @@
-![](https://raw.githubusercontent.com/djerfy/zabbix-kubernetes-discovery/main/.github/assets/zabbix-kubernetes-discovery.png)
+![](.github/assets/zabbix-kubernetes-discovery.png)
 
 <p align="center">
-  <a style="text-decoration:none" href="https://github.com/djerfy/zabbix-kubernetes-discovery/blob/main/LICENSE.md">
-    <img alt="License" src="https://img.shields.io/github/license/djerfy/zabbix-kubernetes-discovery?logo=github&color=0&label=License&style=flat-square">
+  <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/blob/main/LICENSE.md">
+    <img alt="License" src="https://img.shields.io/github/license/axians-acsp/zabbix-kubernetes-discovery?logo=github&color=0&label=License&style=flat-square">
   </a>
-  <a style="text-decoration:none" href="https://github.com/djerfy/zabbix-kubernetes-discovery/issues">
-    <img alt="Issues" src="https://img.shields.io/github/issues/djerfy/zabbix-kubernetes-discovery?logo=github&color=0&label=Issues&style=flat-square">
-  </a>
-  <a style="text-decoration:none" href="https://github.com/djerfy/zabbix-kubernetes-discovery/actions/workflows/docker-release.yml">
-    <img alt="Pipeline Docker" src="https://img.shields.io/github/actions/workflow/status/djerfy/zabbix-kubernetes-discovery/docker-release.yml?logo=github&color=0&label=Pipeline%20Docker&style=flat-square">
-  </a>
-  <a style="text-decoration:none" href="https://github.com/djerfy/zabbix-kubernetes-discovery/actions/workflows/helm.yml">
-    <img alt="Pipeline Helm" src="https://img.shields.io/github/actions/workflow/status/djerfy/zabbix-kubernetes-discovery/helm.yml?logo=github&color=0&label=Pipeline%20Helm&style=flat-square">
-  </a>
-  <a style="text-decoration:none" href="https://github.com/djerfy/zabbix-kubernetes-discovery/actions/workflows/trivy-scan-code.yml">
-    <img alt="Pipeline Helm" src="https://img.shields.io/github/actions/workflow/status/djerfy/zabbix-kubernetes-discovery/trivy-scan-code.yml?logo=github&color=0&label=Trivy%20Scan&style=flat-square">
-  </a>
-  <a style="text-decoration:none" href="https://github.com/djerfy/zabbix-kubernetes-discovery/releases/tag/v1.4.20">
-    <img alt="Release" src="https://img.shields.io/github/v/release/djerfy/zabbix-kubernetes-discovery?logo=github&color=0&label=Release&style=flat-square">
+  <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/releases/tag/v1.5.0">
+    <img alt="Release" src="https://img.shields.io/github/v/release/axians-acsp/zabbix-kubernetes-discovery?logo=github&color=0&label=Release&style=flat-square">
   </a>
 </p>
 
 # Zabbix Kubernetes Discovery
-
-> :warning: **This repository is archived and zabbix-kubernetes-discovery is no longer maintained. You can fork to continue your development.**
-
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/djerfy&style=flat-square)](https://artifacthub.io/packages/search?repo=djerfy)
 
 ## Introduction
 
@@ -73,9 +57,9 @@ $ helm upgrade --install zabbix-kubernetes-discovery \
 To install the chart with the release name `zabbix-kubernetes-discovery` from my Helm repository:
 
 ```bash
-$ helm repo add djerfy https://djerfy.github.io/helm-charts
+$ helm repo add acsp https://helm.acsp.io
 $ helm upgrade --install zabbix-kubernetes-discovery \
-    djerfy/zabbix-kubernetes-discovery \
+    acsp/zabbix-kubernetes-discovery \
     --namespace zabbix-monitoring
     --set namespace.name="zabbix-monitoring" \
     --set environment.ZABBIX_ENDPOINT="zabbix-proxy.example.com" \
@@ -127,7 +111,7 @@ After downloading, you need to import it as below:
 4. Select downloaded template file
 5. Confirm import
 
-![zabbix-template-import](https://raw.githubusercontent.com/djerfy/zabbix-kubernetes-discovery/main/.github/assets/zabbix-template-import.png)
+![zabbix-template-import](.github/assets/zabbix-template-import.png)
 
 ### Discovery rules
 

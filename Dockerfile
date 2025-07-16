@@ -1,8 +1,8 @@
 FROM ubuntu:24.04
 
 LABEL description="Zabbix Kubernetes Discovery" \
-      maintainer="DJΞRFY <djerfy@gmail.com>" \
-      repository="https://github.com/djerfy/zabbix-kubernetes-discovery"
+      maintainer="Axians Cloud Services Provider" \
+      repository="https://github.com/axians-acsp/zabbix-kubernetes-discovery"
 
 WORKDIR /app
 

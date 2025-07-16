@@ -17,9 +17,9 @@ tarballs and index.yaml file are updated automatically (Github Actions).
 ## Install
 
 ```bash
-$ helm repo add djerfy https://djerfy.github.io/helm-charts
+$ helm repo add acsp https://helm.acsp.io
 $ helm upgrade --install zabbix-kubernetes-discovery \
-    djerfy/zabbix-kubernetes-discovery \
+    acsp/zabbix-kubernetes-discovery \
     --namespace zabbix-monitoring
     --set namespace.name="zabbix-monitoring" \
     --set environment.ZABBIX_ENDPOINT="zabbix-proxy.example.com" \
@@ -44,7 +44,7 @@ $ helm delete zabbix-kubernetes-discovery \
 | `serviceAccount.create`                           | boolean | `true`                                                      |
 | `serviceAccount.name`                             | string  | `zabbix-kubernetes-discovery`                               |
 | `deployment.name`                                 | string  | `zabbix-kubernetes-discovery`                               |
-| `deployment.image.name`                           | string  | `ghcr.io/djerfy/zabbix-kubernetes-discovery:v1.4.20`        |
+| `deployment.image.name`                           | string  | `ghcr.io/axians-acsp/zabbix-kubernetes-discovery:v1.5.0`    |
 | `deployment.image.pullPolicy`                     | string  | `IfNotPresent`                                              |
 | `deployment.replicas`                             | integer | `1`                                                         |
 | `deployment.strategy`                             | string  | `Recreate`                                                  |
