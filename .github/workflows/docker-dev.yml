@@ -8,7 +8,6 @@ name: Build and publish (dev)
 on:
   push:
     branches:
-      - 'main'
       - 'release/**'
       - 'feature/**'
       - 'bugfix/**'
