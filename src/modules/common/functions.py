@@ -9,10 +9,10 @@ def ifObjectMatch(
     description: check if the object is in list
     return: bool
     """
-    if object_list is None or object_list == "" or object_list == "*":
+    if object_list is None or object_list == "" or object_list == "*" or object_list == "null":
         return False
 
-    if object_name is None or object_name == "" or object_name == "*":
+    if object_name is None or object_name == "" or object_name == "*" or object_name == "null":
         return False
 
     if type(object_list) == str:
@@ -37,10 +37,10 @@ def ifLabelMatch(
     description: check if the object match a label
     return: bool
     """
-    if match_label is None or match_label == "" or match_label == "*":
+    if match_label is None or match_label == "" or match_label == "*" or match_label == "null":
         return False
     
-    if object_labels is None or object_labels == "" or object_labels == "*":
+    if object_labels is None or object_labels == "" or object_labels == "*" or object_labels == "null":
         return False
     
     object_labels = str(object_labels).replace("{", "").replace("}", "").replace("'", "").replace(" ", "").split(",")
