@@ -359,6 +359,9 @@ def getCronjob(
         if type(job_latest) is dict:
             continue
 
+        # quick patch for 'SuccessCriteriaMet' in job condition
+        [job_latest.status.conditions.pop(i) for i, _ in enumerate(job_latest.status.conditions) if _.type == 'SuccessCriteriaMet'][0]
+
         if job_latest.status.conditions[0].type == "Complete":
             cronjob_status = "0"
         else:
