@@ -4,7 +4,7 @@
   <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/blob/main/LICENSE.md">
     <img alt="License" src="https://img.shields.io/github/license/axians-acsp/zabbix-kubernetes-discovery?logo=github&color=0&label=License&style=flat-square">
   </a>
-  <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/releases/tag/v1.5.1">
+  <a style="text-decoration:none" href="https://github.com/axians-acsp/zabbix-kubernetes-discovery/releases/tag/v1.5.2">
     <img alt="Release" src="https://img.shields.io/github/v/release/axians-acsp/zabbix-kubernetes-discovery?logo=github&color=0&label=Release&style=flat-square">
   </a>
 </p>
