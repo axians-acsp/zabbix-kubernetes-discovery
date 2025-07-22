@@ -359,13 +359,12 @@ def getCronjob(
         if type(job_latest) is dict:
             continue
 
-        # quick patch for 'SuccessCriteriaMet' in job condition
-        [job_latest.status.conditions.pop(i) for i, _ in enumerate(job_latest.status.conditions) if _.type == 'SuccessCriteriaMet'][0]
-
-        if job_latest.status.conditions[0].type == "Complete":
+        if getattr(job_latest.status, "succeeded", 0) == 1:
             cronjob_status = "0"
+            cronjob_type = "Complete"
         else:
             cronjob_status = "1"
+            cronjob_type = "Failed"
 
         json = {
             "name": cronjob.metadata.name,
@@ -375,7 +374,7 @@ def getCronjob(
                 "name": job_latest.metadata.name,
                 "reason": job_latest.status.conditions[0].reason,
                 "message": job_latest.status.conditions[0].message,
-                "status": job_latest.status.conditions[0].type
+                "status": cronjob_type
             }
         }
 
